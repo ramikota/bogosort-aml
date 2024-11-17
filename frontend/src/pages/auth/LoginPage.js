@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
 import "../../styles/Auth.css";
 
-
 function LoginPage() {
-    const [formData, setFormData] = useState({
-        username: "",
-        password: "",
-    });
-    const [message, setMessage] = useState("");
-    const navigate = useNavigate();
+    const [formData, setFormData] = useState({ username: '', password: '' });
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate(); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,17 +16,18 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("/api/auth/login", formData);
-            localStorage.setItem("token", response.data.token); // saves token for authenticated requests
-            navigate("/profile");
+            const response = await axios.post('/api/login', formData); // Replace with your backend URL
+            localStorage.setItem('token', response.data.token); // Save token for authentication
+            setMessage('Login successful!');
+            navigate('/home'); 
         } catch (error) {
-            setMessage("Login failed: " + error.response.data.message);
+            setMessage(error.response?.data?.message || 'Invalid username or password.');
         }
     };
 
     return (
         <div className="auth-container">
-            
+
             <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="username"
