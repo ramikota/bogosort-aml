@@ -1,4 +1,4 @@
-/* General Styling */
+
 body {
     margin: 0;
     padding: 0;
@@ -6,14 +6,13 @@ body {
     background-color: #f8f9fa;
 }
 
-/* Homepage Layout */
+
 .homepage {
     display: flex;
     height: 100vh;
     overflow: hidden;
 }
 
-/* Sidebar */
 .sidebar {
     width: 250px;
     background-color: #6258eb;
@@ -44,14 +43,13 @@ body {
     background-color: #125827;
 }
 
-/* Main Content */
 .main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* Navbar */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -80,7 +78,6 @@ body {
     background-color: #125827;
 }
 
-/* Content Area */
 .content {
     padding: 20px;
 }
