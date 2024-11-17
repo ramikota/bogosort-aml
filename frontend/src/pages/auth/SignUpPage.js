@@ -1,12 +1,11 @@
-// src/pages/auth/SignUpPage.js
 import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/Auth.css";
- // Import shared CSS for styling
+
 
 function SignUpPage() {
     const [formData, setFormData] = useState({
-        name: "",
+        username: "",
         email: "",
         password: "",
     });
@@ -29,13 +28,13 @@ function SignUpPage() {
 
     return (
         <div className="auth-container">
-            <h2>Sign Up</h2>
+            
             <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name}
+                    name="username"
+                    placeholder="Username"
+                    value={formData.Username}
                     onChange={handleChange}
                     required
                 />

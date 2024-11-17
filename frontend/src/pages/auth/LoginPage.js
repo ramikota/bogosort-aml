@@ -1,4 +1,3 @@
-// src/pages/auth/LoginPage.js
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +6,7 @@ import "../../styles/Auth.css";
 
 function LoginPage() {
     const [formData, setFormData] = useState({
-        email: "",
+        username: "",
         password: "",
     });
     const [message, setMessage] = useState("");
@@ -22,8 +21,8 @@ function LoginPage() {
         e.preventDefault();
         try {
             const response = await axios.post("/api/auth/login", formData);
-            localStorage.setItem("token", response.data.token); // Save token for authenticated requests
-            navigate("/profile"); // Redirect to profile or another authenticated route
+            localStorage.setItem("token", response.data.token); // saves token for authenticated requests
+            navigate("/profile");
         } catch (error) {
             setMessage("Login failed: " + error.response.data.message);
         }
@@ -31,13 +30,13 @@ function LoginPage() {
 
     return (
         <div className="auth-container">
-            <h2>Log In</h2>
+            
             <form onSubmit={handleSubmit} className="auth-form">
                 <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
+                    type="username"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
                     onChange={handleChange}
                     required
                 />
