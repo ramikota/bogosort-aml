@@ -14,10 +14,10 @@ function HomePage() {
         <div className="homepage">
             <div className="sidebar">
                 <h2>SIDEBAR</h2>
-                <button className="sidebar-button">Dashboard</button>
+                <button className="sidebar-button">HomePage</button>
                 <button className="sidebar-button">Media</button>
                 <button className="sidebar-button">Profile</button>
-                <button className="sidebar-button">Settings</button>
+                <button className="sidebar-button">Subsciption</button>
             </div>
 
             <div className="main-content">
