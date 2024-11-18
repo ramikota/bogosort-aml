@@ -19,7 +19,7 @@ function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("/api/auth/signup", formData);
+            const response = await axios.post("http://localhost:3001/api/register", formData);
             setMessage("Signup successful! Please log in.");
         } catch (error) {
             setMessage("Signup failed: " + error.response.data.message);

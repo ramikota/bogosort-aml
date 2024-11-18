@@ -1,38 +1,35 @@
-// bypass login for testing
-import React from 'react';
+// // bypass login for testing
+// import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import "../../styles/Auth.css";
+
+// function LoginPage() {
+//     const navigate = useNavigate();
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         navigate('/home');
+//     };
+
+//     return (
+//         <div className="auth-container">
+//             <form onSubmit={handleSubmit} className="auth-form">
+//                 <input type="text" name="username" placeholder="Username" required />
+//                 <input type="password" name="password" placeholder="Password" required />
+//                 <button type="submit">Log In</button>
+//             </form>
+//         </div>
+//     );
+// }
+
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../../styles/Auth.css";
-
-function LoginPage() {
-    const navigate = useNavigate();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/home');
-    };
-
-    return (
-        <div className="auth-container">
-            <form onSubmit={handleSubmit} className="auth-form">
-                <input type="text" name="username" placeholder="Username" required />
-                <input type="password" name="password" placeholder="Password" required />
-                <button type="submit">Log In</button>
-            </form>
-        </div>
-    );
-}
-
-export default LoginPage;
-// real login code
-/*import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import "../../styles/Auth.css";
 
 function LoginPage() {
     const [formData, setFormData] = useState({ username: '', password: '' });
-    const [message, setMessage] = useState('');
-    const navigate = useNavigate(); 
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -42,18 +39,17 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/api/login', formData);  // Correct URL
-            localStorage.setItem('token', response.data.token);  // Save token for authentication
-            setMessage('Login successful!');
-            navigate('/home'); // Redirect to home page
-        } catch (error) {
-            setMessage(error.response?.data?.message || 'Invalid username or password.');
+            const response = await axios.post('http://localhost:3001/api/login', formData);
+            localStorage.setItem('token', response.data.token);
+            navigate('/home');
+        } catch (err) {
+            setError(err.response?.data?.message || 'An error occurred');
         }
     };
 
     return (
-        <div className="auth-container">
-            <form onSubmit={handleSubmit} className="auth-form">
+        <div>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     name="username"
@@ -71,11 +67,10 @@ function LoginPage() {
                     required
                 />
                 <button type="submit">Log In</button>
-                {message && <p className="auth-message">{message}</p>}
+                {error && <p>{error}</p>}
             </form>
         </div>
     );
 }
 
-export default LoginPage; */
-
+export default LoginPage;
