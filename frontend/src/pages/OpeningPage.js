@@ -55,8 +55,7 @@ function OpeningPage() {
                 </div>
 
             <div className="content">
-                    <h2>Home</h2>
-                    <p>Library</p>
+                    <h2>Library</h2>
                     <div className="media-grid">
                     {mediaItems.map((item) => (
                         <div key={item.id} className="media-item">
