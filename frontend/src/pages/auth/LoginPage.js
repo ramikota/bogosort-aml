@@ -1,4 +1,30 @@
-import React, { useState } from 'react';
+// bypass login for testing
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import "../../styles/Auth.css";
+
+function LoginPage() {
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate('/home');
+    };
+
+    return (
+        <div className="auth-container">
+            <form onSubmit={handleSubmit} className="auth-form">
+                <input type="text" name="username" placeholder="Username" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    );
+}
+
+export default LoginPage;
+// real login code
+/*import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import "../../styles/Auth.css";
@@ -29,7 +55,7 @@ function LoginPage() {
         <div className="auth-container">
             <form onSubmit={handleSubmit} className="auth-form">
                 <input
-                    type="username"
+                    type="text"
                     name="username"
                     placeholder="Username"
                     value={formData.username}
@@ -51,4 +77,5 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default LoginPage; */
+

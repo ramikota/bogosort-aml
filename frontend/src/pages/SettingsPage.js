@@ -1,28 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../styles/HomePage.css"; 
+import "../styles/SettingsPage.css"; 
 
-function HomePage() {
+function ProfilePage() {
     const navigate = useNavigate();
-
+    
     const handleNavigation = (path) => {
-        navigate(path); // navigation to different pages
+        navigate(path); 
     };
 
     const handleLogout = () => {
         localStorage.removeItem('token'); 
         navigate('/'); 
     };
+
     const handleImageButtonClick = () => {
-        navigate('/profile'); // for the profile button
+        navigate('/profile'); 
     };
+
+   
+
+
+
     return (
         <div className="homepage">
             <div className="sidebar">
                 <h2>AML</h2>
                 <button 
                     className="sidebar-button"
-                    onClick={() => handleNavigation("/home")} // for the Home button
+                    onClick={() => handleNavigation("/home")}
                 >
                     Home
                 </button>
@@ -39,7 +45,7 @@ function HomePage() {
 
             <div className="main-content">
                 <div className="navbar">
-                    <h1>Search Bar</h1>
+                    <h1>Settings</h1>
                     <div className="navbar-buttons">
                         <button className="image-button" onClick={handleImageButtonClick}>
                             <img
@@ -48,19 +54,21 @@ function HomePage() {
                                 className="image-icon"
                             />
                         </button>
-                        <button className="logout-button" onClick={handleLogout}> {/*for the logout button*/}
+                        <button className="logout-button" onClick={handleLogout}>
                             Log Out
                         </button>
                     </div>
                 </div>
 
                 <div className="content">
-                    <h2>Home</h2>
-                    <p>Library</p>
+                    <h3>Manage Settings</h3>
+                
+
+                    
                 </div>
             </div>
         </div>
     );
 }
 
-export default HomePage;
+export default ProfilePage;
