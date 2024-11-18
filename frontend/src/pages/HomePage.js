@@ -5,32 +5,53 @@ import "../styles/HomePage.css";
 function HomePage() {
     const navigate = useNavigate();
 
+    const handleNavigation = (path) => {
+        navigate(path); // navigation to different pages
+    };
+
     const handleLogout = () => {
         localStorage.removeItem('token'); 
         navigate('/'); 
     };
-
+    const handleImageButtonClick = () => {
+        navigate('/profile'); // for the profile button
+    };
     return (
         <div className="homepage">
             <div className="sidebar">
-                <h2>SIDEBAR</h2>
-                <button className="sidebar-button">HomePage</button>
-                <button className="sidebar-button">Media</button>
-                <button className="sidebar-button">Profile</button>
-                <button className="sidebar-button">Subsciption</button>
+                <h2>AML</h2>
+                <button 
+                    className="sidebar-button"
+                    onClick={() => handleNavigation("/home")} // for the Home button
+                >
+                    Home
+                </button>
+                <button className="sidebar-button">Borrowed</button>
+                <button className="sidebar-button">Reserved</button>
+                <button className="sidebar-button">Subscription</button>
+                <button className="sidebar-button">Settings</button>
             </div>
 
             <div className="main-content">
                 <div className="navbar">
-                    <h1>Bogosort AML Library</h1>
-                    <button className="logout-button" onClick={handleLogout}>
-                        Log Out
-                    </button>
+                    <h1>Search Bar</h1>
+                    <div className="navbar-buttons">
+                        <button className="image-button" onClick={handleImageButtonClick}>
+                            <img
+                                src="/profile.png"
+                                alt="Profile"
+                                className="image-icon"
+                            />
+                        </button>
+                        <button className="logout-button" onClick={handleLogout}> {/*for the logout button*/}
+                            Log Out
+                        </button>
+                    </div>
                 </div>
 
                 <div className="content">
-                    <h2>Homepage</h2>
-                    <p>Media here</p>
+                    <h2>Home</h2>
+                    <p>Library</p>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import "../styles/Login.css";
 function OpeningPage() {
     return (
         <div className="home-container">
-            <h1 className="home-header">Bogosort AML Library</h1>
+            <h1 className="home-header">Bogosort AML</h1>
             <p className="home-description">
                 Please log in or sign up.
             </p>
