@@ -1,19 +1,51 @@
-import React from "react";
-import "../styles/Login.css"; 
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import "../styles/OpeningPage.css"; 
+
 function OpeningPage() {
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+        navigate(path); // navigation to different pages
+    };
+
     return (
-        <div className="home-container">
-            <h1 className="home-header">Bogosort AML Library</h1>
-            <p className="home-description">
-                Please log in or sign up.
-            </p>
-            <div className="home-links">
-                <a href="/login" className="home-link">
+        <div className="homepage">
+            <div className="sidebar">
+                <h2>AML</h2>
+                <button 
+                    className="sidebar-button"
+                    onClick={() => handleNavigation("/opening")} // for the Home button
+                >
+                    Home
+                </button>
+            </div>
+
+            <div className="main-content">
+                <div className="navbar">
+                    <h1>Search Bar</h1>
+                    <div className="navbar-buttons">
+                    <button 
+                    className="login-button"
+                    onClick={() => handleNavigation("/login")} // for the Home button
+                >
                     Login
-                </a>
-                <a href="/signup" className="home-link">
+                </button>
+                <button 
+                    className="signup-button"
+                    onClick={() => handleNavigation("/signup")} // for the Home button
+                >
                     Sign Up
-                </a>
+                </button>
+            </div>
+                        
+                    
+                </div>
+
+            <div className="content">
+                    <h2>Home</h2>
+                    <p>Library</p>
+            </div>
             </div>
         </div>
     );
