@@ -14,11 +14,6 @@ class User {
     connection.query(query, [username], callback);
   }
 
-  // Find user by ID
-  static findById(id, callback) {
-    const query = 'SELECT * FROM User WHERE id = ?';
-    connection.query(query, [id], callback);
-  }
 
   // Find all users (for accountant)
   static findAll(callback) {

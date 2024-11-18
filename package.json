@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "nodemon": "^3.1.7"
   },
   "dependencies": {
@@ -20,7 +21,9 @@
     "dotenv": "^16.4.5",
     "env": "^0.0.2",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.4",
+    "react-router-dom": "^6.28.0",
     "sequelize": "^6.37.5"
   }
 }

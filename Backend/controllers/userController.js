@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+require('dotenv').config(); 
 
 class UserController {
   // Register a new user
@@ -45,8 +47,10 @@ class UserController {
       if (user.password !== password) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
+           // Create a JWT token
+           const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+           res.status(200).json({ message: 'Login successful', token });
 
-      res.status(200).json({ message: 'Login successful', user });
     });
   }
 }

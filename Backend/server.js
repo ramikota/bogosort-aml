@@ -1,18 +1,22 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/userRoutes');
+const UserController = require('./controllers/userController');
+const cors = require('cors');
+
 
 // Initialize Express app
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 
-// User Routes
-app.use('/api/users', userRoutes);
+const router = express.Router();
+app.use('/api', router);
 
-// Set the port for the server
-const PORT = 3000;
+router.post('/login', UserController.login);  // for login
+router.post('/register', UserController.register);  // for registration
+
+
 
 
 // Home Route
@@ -21,6 +25,8 @@ app.get("/", (req, res) => {
 });
 
 
+// Set the port for the server
+const PORT = 3001;
 
   app.listen(PORT, () => {
     console.log("The server is running on port number: " + PORT);

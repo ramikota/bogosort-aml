@@ -16,10 +16,10 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/login', formData); // Replace with your backend URL
-            localStorage.setItem('token', response.data.token); // Save token for authentication
+            const response = await axios.post('http://localhost:3001/api/login', formData);  // Correct URL
+            localStorage.setItem('token', response.data.token);  // Save token for authentication
             setMessage('Login successful!');
-            navigate('/home'); 
+            navigate('/home'); // Redirect to home page
         } catch (error) {
             setMessage(error.response?.data?.message || 'Invalid username or password.');
         }
@@ -27,7 +27,6 @@ function LoginPage() {
 
     return (
         <div className="auth-container">
-
             <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="username"
