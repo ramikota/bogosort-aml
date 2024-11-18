@@ -39,7 +39,12 @@ function HomePage() {
 
             <div className="main-content">
                 <div className="navbar">
-                    <h1>Search Bar</h1>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="search-bar"
+                
+                    />
                     <div className="navbar-buttons">
                         <button className="image-button" onClick={handleImageButtonClick}>
                             <img

@@ -15,7 +15,7 @@ function OpeningPage() {
                 <h2>AML</h2>
                 <button 
                     className="sidebar-button"
-                    onClick={() => handleNavigation("/opening")} // for the Home button
+                    onClick={() => handleNavigation("/")} // for the Home button
                 >
                     Home
                 </button>
@@ -23,7 +23,12 @@ function OpeningPage() {
 
             <div className="main-content">
                 <div className="navbar">
-                    <h1>Search Bar</h1>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="search-bar"
+                
+                    />
                     <div className="navbar-buttons">
                     <button 
                     className="login-button"

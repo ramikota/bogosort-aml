@@ -68,6 +68,16 @@ body {
     margin: 0;
     font-size: 1.4rem;
 }
+.navbar .search-bar {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 200px; 
+    margin-right: 10px; 
+    background-color: #fff;
+}
+
 
 .image-button {
     background-color: transparent;
