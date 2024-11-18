@@ -14,8 +14,9 @@ async function fetchBooks(author) {
             const title = book.volumeInfo.title;
             const authors = book.volumeInfo.authors;
             const genres = book.volumeInfo.categories;
+            const image = book.volumeInfo.imageLinks;
 
-            return {title, authors, genres};
+            return {title, authors, genres, image};
         })
     } catch (error) {
         console.error('Error fetching data')
