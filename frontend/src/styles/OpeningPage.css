@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     padding: 0;
@@ -90,22 +91,8 @@ body {
     border-radius: 50%; 
 }
 
-.logout-button {
+.login-button {
     padding: 10px 20px;
-    background-color: #22d357;
-    color: white;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.logout-button:hover {
-    background-color: #125827;
-}
-
-.logout-button {
-    padding: 10px 10px;
     background-color: #22d357;
     color: white;
     border: none;
@@ -114,60 +101,26 @@ body {
     font-size: 1rem;
 }
 
-.profile-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.login-button:hover {
+    background-color: #125827;
+}
+
+
+.signup-button {
+    padding: 10px 20px;
+    background-color: #22d357;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.signup-button:hover {
+    background-color: #125827;
 }
 
 .content {
-    margin-top: -10px;
-}
-
-.form-group {
-    margin-bottom: 10px;
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
-
-}
-
-.form-group input {
-    width: 20%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.save-button {
-    padding: 10px 20px;
-    background-color: #22d357;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 20px;
-}
-
-.save-button:hover {
-    background-color: #125827;
-}
-
-.profile-message {
-    margin-top: 15px;
-    text-align: left;
-    font-size: 0.9rem;
-    color: #22d357;
-}
-
-.profile-message.error {
-    color: red;
+    padding: 20px; 
+    margin-top: -30px;
 }

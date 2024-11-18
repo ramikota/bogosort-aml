@@ -49,7 +49,12 @@ function ProfilePage() {
                 <button className="sidebar-button">Borrowed</button>
                 <button className="sidebar-button">Reserved</button>
                 <button className="sidebar-button">Subscription</button>
-                <button className="sidebar-button">Settings</button>
+                <button 
+                    className="sidebar-button"
+                    onClick={() => handleNavigation("/settings")}
+                >
+                    Settings
+                </button>
             </div>
 
             <div className="main-content">
