@@ -10,8 +10,7 @@ function ReturnMedia() {
             .then(data => {
                 if (data > 0) {
                     setBorrowed(data)
-                }
-                else {
+                } else {
                     setErrorMessage("You have not borrowed any media.");
                 }
     }, []); */
@@ -23,6 +22,12 @@ function ReturnMedia() {
         { book: 'img', dateBorrowed: '01/11/2024', returnBy: '10/11/2024' },
         { book: 'img', dateBorrowed: '01/11/2024', returnBy: '10/11/2024' }
     ];
+
+    const [selectedMedia, setSelectedMedia] = useState([]);
+
+    const handleChange = (item) => {
+        setSelectedMedia(item);
+    }
 
     return (
         <div className="main">
@@ -38,6 +43,9 @@ function ReturnMedia() {
                         <td>{item.book}</td>
                         <td>{item.dateBorrowed}</td>
                         <td>{item.returnBy}</td>
+                        <td>
+                            <input type ="checkbox" checked={selectedMedia.item} onChange={() => handleChange(item)}/>
+                        </td>
                     </tr>
                     )
                 })}
