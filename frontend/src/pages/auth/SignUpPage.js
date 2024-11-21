@@ -20,8 +20,14 @@ function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("/api/auth/signup", formData);
-            setMessage("Signup successful! Please log in.");
+            const response = await axios.post("http://localhost:3001/api/register", formData);
+            setMessage(
+                <>
+                   <span style={{ color: 'green' }}>
+                    Signup successful! Please <a href="/login">log in</a>.
+                 </span>
+                </>
+            );
         } catch (error) {
             setMessage("Signup failed: " + error.response.data.message);
         }
@@ -42,15 +48,8 @@ function SignUpPage() {
                     onChange={handleChange}
                     required
                 />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <input
+            
+                  <input
                     type="password"
                     name="password"
                     placeholder="Password"
@@ -58,6 +57,40 @@ function SignUpPage() {
                     onChange={handleChange}
                     required
                 />
+                <input
+                    type="text"
+                    name="address"
+                    placeholder="Address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="postcode"
+                    placeholder="Postcode"
+                    value={formData.postcode}
+                    onChange={handleChange}
+                    required
+                />
+                
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    value={formData.city}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="country"
+                    placeholder="Country"
+                    value={formData.Country}
+                    onChange={handleChange}
+                    required
+                />
+              
                 <button type="submit">Sign Up</button>
                 {message && <p className="auth-message">{message}</p>}
             </form>

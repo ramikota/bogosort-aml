@@ -6,8 +6,10 @@ import OpeningPage from "./pages/OpeningPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
+import MediaDetails from './pages/MediaDetails';
 import SubscriptionSignUpPage from "./pages/auth/SubscriptionSignUp";
 import SubscribedPage from "./pages/SubscribedPage";
+
 function App() {
     return (
         <Router>
@@ -15,6 +17,7 @@ function App() {
                 <Route path="/" element={<OpeningPage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/media/:id" element={<MediaDetails />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/subscriptionsignup" element={<SubscriptionSignUpPage />} />
                 <Route path="/subscribed" element={<SubscribedPage />} />
