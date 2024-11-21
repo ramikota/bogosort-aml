@@ -64,7 +64,7 @@ function MediaDetails() {
           Home
         </button>
         <button className="sidebar-button">Borrowed</button>
-        <button className="sidebar-button">Reserved</button>
+       
         <button className="sidebar-button">Subscription</button>
         <button 
           className="sidebar-button"
