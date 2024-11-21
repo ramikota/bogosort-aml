@@ -1,23 +1,3 @@
-// require('dotenv').config(); 
-// const mysql = require('mysql2');
-
-// // Ensure the object for connection is formatted correctly
-// const connection = mysql.createConnection({
-//   user: process.env.DB_USER, 
-//   host: process.env.DB_HOST,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-//   port: process.env.PORT,
-// });
-
-// connection.connect((err) => {
-//   if (err) {
-//     console.error('Error connecting to database:', err.message);
-//   } else {
-//     console.log('Connected to the database');
-//   }
-// });
-
 require('dotenv').config(); 
 const mysql = require('mysql2');
 
@@ -28,9 +8,9 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.PORT,
-  waitForConnections: true,  // Allow new connections to wait for an available one
-  connectionLimit: 10,       // Maximum number of connections to the pool
-  queueLimit: 0              // No limit for the number of queued requests
+  waitForConnections: true,  
+  connectionLimit: 10,      
+  queueLimit: 0            
 });
 
 

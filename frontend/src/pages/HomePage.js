@@ -1,36 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../styles/HomePage.css"; 
+import "../styles/HomePage.css";
 
 function HomePage() {
-    const mediaItems = [
-        { id: 1, title: "Harry Potter And The Deathly Hallows", imageUrl: "/media/book1.jpg" },
-        { id: 2, title: "James And The Giant Peach", imageUrl: "/media/book2.jpg" },
-        { id: 3, title: "The Imperfections Of Memory", imageUrl: "/media/book3.jpg" },
-        { id: 4, title: "A Million To One", imageUrl: "/media/book4.jpg" },
-        { id: 5, title: "The Lord Of The Rings", imageUrl: "/media/book5.jpg" }
-    ];
-
+    const [mediaItems, setMediaItems] = useState([]);
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [warningMessage, setWarningMessage] = useState("");
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/getHomeMedia")
+            .then(response => response.json())
+            .then(data => setMediaItems(data))
+            .catch(error => console.error("Error fetching media:", error));
+    }, []);
+
+    const handleSearch = () => {
+        if (searchQuery.trim() === "") {
+            setWarningMessage("Search field cannot be empty.");
+            return;
+        }
+        setWarningMessage("");
+
+        fetch(`http://localhost:3001/api/searchMedia?query=${searchQuery}`)
+            .then(response => response.json())
+            .then(data => setMediaItems(data))
+            .catch(error => console.error("Error searching media:", error));
+    };
+
+    const handleMediaClick = (mediaId) => {
+         console.log("Navigating to mediaId:", mediaId); 
+        navigate(`/media/${mediaId}`); // Navigate to media details page
+        
+    };
+
+    const handleHomeNavigation = () => {
+        setSearchQuery("");
+        setWarningMessage("");
+        fetch("http://localhost:3001/api/getHomeMedia")
+            .then(response => response.json())
+            .then(data => setMediaItems(data))
+            .catch(error => console.error("Error fetching media:", error));
+        navigate("/");
+    };
 
     const handleNavigation = (path) => {
-        navigate(path); // navigation to different pages
+        navigate(path);
     };
 
     const handleLogout = () => {
         localStorage.removeItem('token'); 
         navigate('/'); 
     };
+
     const handleImageButtonClick = () => {
-        navigate('/profile'); // for the profile button
+        navigate('/profile');
     };
+
     return (
         <div className="homepage">
             <div className="sidebar">
                 <h2>AML</h2>
                 <button 
                     className="sidebar-button"
-                    onClick={() => handleNavigation("/home")} // for the Home button
+                    onClick={() => handleNavigation("/home")}
                 >
                     Home
                 </button>
@@ -47,12 +80,18 @@ function HomePage() {
 
             <div className="main-content">
                 <div className="navbar">
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="search-bar"
-                
-                    />
+                    <div className="search-bar-container">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="search-bar"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <button className="search-button" onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                     <div className="navbar-buttons">
                         <button className="image-button" onClick={handleImageButtonClick}>
                             <img
@@ -61,22 +100,41 @@ function HomePage() {
                                 className="image-icon"
                             />
                         </button>
-                        <button className="logout-button" onClick={handleLogout}> {/*for the logout button*/}
+                        <button className="logout-button" onClick={handleLogout}>
                             Log Out
                         </button>
                     </div>
                 </div>
-
+                {warningMessage && <div className="warning-message">{warningMessage}</div>}
                 <div className="content">
                     <h2>Library</h2>
                     <div className="media-grid">
-                    {mediaItems.map((item) => (
-                        <div key={item.id} className="media-item">
-                            <img src={item.imageUrl} alt={item.title} className="media-image" />
-                            <p className="media-title">{item.title}</p>
-                        </div>
-                    ))}
-                </div>
+                        {mediaItems.map((item) => (
+                            <div 
+                                key={item.id} 
+                                className="media-item" 
+                                onClick={() => handleMediaClick(item.id)} 
+                            >
+                                <img 
+                                    src={item.image} 
+                                    alt={item.title} 
+                                    className="media-image" 
+                                />
+                                <p className="media-title">{item.title}</p>
+                                <p>Author: {item.author}</p>
+                                <p>Type: {item.type}</p>
+                                <p>Availability:  
+                                   <span 
+                                     style={{
+                                        color: item.availability === 1 ? 'green' : 'red', 
+                                        fontWeight: 'bold'
+                                       }} >
+                                     {item.availability === 1 ? " Yes" : " No"}
+                                    </span>
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

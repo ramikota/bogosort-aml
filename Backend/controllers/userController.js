@@ -1,59 +1,3 @@
-// const User = require('../models/User');
-// const jwt = require('jsonwebtoken');
-// require('dotenv').config(); 
-
-// class UserController {
-//   // Register a new user
-//   static register(req, res) {
-//     const { username, password, role, postcode, city, country } = req.body;
-
-//     // Check if the user already exists
-//     User.findByUsername(username, (err, existingUser) => {
-//       if (err) {
-//         return res.status(500).json({ message: 'Error checking for user' });
-//       }
-
-//       if (existingUser.length > 0) {
-//         return res.status(400).json({ message: 'User already exists' });
-//       }
-
-//       // Create the user
-//       User.create({ username, password, role, postcode, city, country }, (err, result) => {
-//         if (err) {
-//           return res.status(500).json({ message: 'Error creating user' });
-//         }
-//         res.status(201).json({ message: 'User registered successfully', userId: result.insertId });
-//       });
-//     });
-//   }
-
-//   static login(req, res) {
-//     const { username, password } = req.body;
-//     console.log("Request Body:", req.body);
-  
-//     User.findByUsername(username, (err, users) => {
-//       if (err) {
-//         return res.status(500).json({ message: 'Internal server error' });
-//       }
-  
-//       if (users.length === 0) {
-//         return res.status(404).json({ message: 'User not found' });
-//       }
-  
-//       const user = users[0];
-  
-//       if (user.password !== password) {
-//         return res.status(401).json({ message: 'Invalid credentials' });
-//       }
-  
-//       const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  
-//       res.status(200).json({ message: 'Login successful', token });
-//     });
-//   }
-// }
-
-// module.exports = UserController;
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 require('dotenv').config(); 
@@ -61,7 +5,7 @@ require('dotenv').config();
 class UserController {
   // Register a new user
   static async register(req, res) {
-    const { username, password, role, postcode, city, country } = req.body;
+    const { username, password, address, postcode, city, country } = req.body;
 
     try {
       // Check if the user already exists
@@ -72,7 +16,7 @@ class UserController {
       }
 
       // Create the user
-      const result = await User.create({ username, password, role, postcode, city, country });
+      const result = await User.create({ username, password, address, postcode, city, country });
       res.status(201).json({ message: 'User registered successfully', userId: result.insertId });
 
     } catch (err) {
@@ -108,7 +52,39 @@ class UserController {
       res.status(200).json({ message: 'Login successful', token });
   
     } catch (err) {
-      console.error(err); // log the actual error for debugging
+      console.error(err); 
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+  static async loginAccountant(req, res) {
+    const { username, password } = req.body;
+  
+    try {
+      // Find accountant by username and role
+      const user = await User.findByUsernameAndRole(username, 'accountant');
+    
+      if (user.length === 0) {
+        return res.status(404).json({ message: 'Accountant not found' });
+      }
+    
+      const foundUser = user[0];
+    
+      // Check if password matches
+      if (foundUser.password !== password) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+    
+      // Generate JWT token
+      const token = jwt.sign(
+        { id: foundUser.id, username: foundUser.username, role: foundUser.role },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+    
+      res.status(200).json({ message: 'Login successful', token });
+    
+    } catch (err) {
+      console.error(err); 
       return res.status(500).json({ message: 'Internal server error' });
     }
   }

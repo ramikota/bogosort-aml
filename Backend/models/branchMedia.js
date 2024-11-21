@@ -1,72 +1,57 @@
-const connection = require('../config/db');
+const promisePool = require('../config/db'); // Importing the promisePool
 
-// BranchMedia model
 const BranchMedia = {
-  // Method to get availability of a specific media across branches
-  getAvailabilityByMedia: (mediaId, callback) => {
+  // Get availability of a specific media across branches
+  getAvailabilityByMedia: async (mediaId) => {
     const query = `
       SELECT 
         b.name AS branch_name, 
-        bm.availableCount
+        bm.available_count
       FROM 
         BranchMedia bm
       JOIN 
-        Branch b ON bm.branchId = b.id
+        Branch b ON bm.branch_id = b.id
       WHERE 
-        bm.mediaId = ?
+        bm.media_id = ?
       ORDER BY 
         b.name;
     `;
-    connection.query(query, [mediaId], (err, results) => {
-      if (err) {
-        return callback(err, null);
-      }
-      return callback(null, results);
-    });
+    try {
+      const [results] = await promisePool.query(query, [mediaId]);
+      return results;
+    } catch (err) {
+      throw new Error('Error fetching availability: ' + err.message);
+    }
   },
 
-  // Method to add media to a branch (initial availability)
-  addMediaToBranch: (branchId, mediaId, availableCount, callback) => {
-    const query = `
-      INSERT INTO BranchMedia (branchId, mediaId, availableCount)
-      VALUES (?, ?, ?)
-    `;
-    connection.query(query, [branchId, mediaId, availableCount], (err, results) => {
-      if (err) {
-        return callback(err, null);
-      }
-      return callback(null, results);
-    });
-  },
-
-  // Method to update the availability count when borrowing or returning
-  updateMediaAvailability: (branchId, mediaId, count, callback) => {
+  // Update the availability count when borrowing or returning media
+  updateMediaAvailability: async (branchId, mediaId, count) => {
     const query = `
       UPDATE BranchMedia
-      SET availableCount = availableCount + ?
-      WHERE branchId = ? AND mediaId = ?
+      SET available_count = available_count + ?
+      WHERE branch_id = ? AND media_id = ?
     `;
-    connection.query(query, [count, branchId, mediaId], (err, results) => {
-      if (err) {
-        return callback(err, null);
-      }
-      return callback(null, results);
-    });
+    try {
+      const [results] = await promisePool.query(query, [count, branchId, mediaId]);
+      return results;
+    } catch (err) {
+      throw new Error('Error updating availability: ' + err.message);
+    }
   },
 
-  // Method to check if a media item exists in a branch
-  checkMediaInBranch: (branchId, mediaId, callback) => {
+  // Check if a media item exists in a branch
+  checkMediaInBranch: async (branchId, mediaId) => {
     const query = `
-      SELECT availableCount
+      SELECT available_count
       FROM BranchMedia
-      WHERE branchId = ? AND mediaId = ?
+      WHERE branch_id = ? AND media_id = ?
     `;
-    connection.query(query, [branchId, mediaId], (err, results) => {
-      if (err) {
-        return callback(err, null);
-      }
-      return callback(null, results);
-    });
+    try {
+      const [results] = await promisePool.query(query, [branchId, mediaId]);
+      return results;
+    } catch (err) {
+      throw new Error('Error checking media in branch: ' + err.message);
+    }
   }
 };
 

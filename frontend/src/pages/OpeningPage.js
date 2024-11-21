@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../styles/OpeningPage.css"; 
+import "../styles/OpeningPage.css";
 
 function OpeningPage() {
-    const mediaItems = [
-        { id: 1, title: "Harry Potter And The Deathly Hallows", imageUrl: "/media/book1.jpg" },
-        { id: 2, title: "James And The Giant Peach", imageUrl: "/media/book2.jpg" },
-        { id: 3, title: "The Imperfections Of Memory", imageUrl: "/media/book3.jpg" },
-        { id: 4, title: "A Million To One", imageUrl: "/media/book4.jpg" },
-        { id: 5, title: "The Lord Of The Rings", imageUrl: "/media/book5.jpg" }
-    ];
+    const [mediaItems, setMediaItems] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [warningMessage, setWarningMessage] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        fetch("http://localhost:3001/api/getHomeMedia")
+            .then(response => response.json())
+            .then(data => setMediaItems(data))
+            .catch(error => console.error("Error fetching media:", error));
+    }, []);
+
+    const handleSearch = () => {
+        if (searchQuery.trim() === "") {
+            setWarningMessage("Search field cannot be empty.");
+            return;
+        }
+        setWarningMessage("");
+
+        fetch(`http://localhost:3001/api/searchMedia?query=${searchQuery}`)
+            .then(response => response.json())
+            .then(data => setMediaItems(data))
+            .catch(error => console.error("Error searching media:", error));
+    };
+
+    const handleHomeNavigation = () => {
+        setSearchQuery("");
+        setWarningMessage("");
+        fetch("http://localhost:3001/api/getHomeMedia")
+            .then(response => response.json())
+            .then(data => setMediaItems(data))
+            .catch(error => console.error("Error fetching media:", error));
+        navigate("/");
+    };
+
     const handleNavigation = (path) => {
-        navigate(path); // navigation to different pages
+        navigate(path);
     };
 
     return (
@@ -22,49 +48,68 @@ function OpeningPage() {
                 <h2>AML</h2>
                 <button 
                     className="sidebar-button"
-                    onClick={() => handleNavigation("/")} // for the Home button
+                    onClick={handleHomeNavigation}
                 >
                     Home
                 </button>
             </div>
-
             <div className="main-content">
                 <div className="navbar">
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="search-bar"
-                
-                    />
+                    <div className="search-bar-container">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="search-bar"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <button className="search-button" onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                     <div className="navbar-buttons">
-                    <button 
-                    className="login-button"
-                    onClick={() => handleNavigation("/login")} // for the Home button
-                >
-                    Login
-                </button>
-                <button 
-                    className="signup-button"
-                    onClick={() => handleNavigation("/signup")} // for the Home button
-                >
-                    Sign Up
-                </button>
-            </div>
-                        
-                    
+                        <button 
+                            className="login-button"
+                            onClick={() => handleNavigation("/login")}
+                        >
+                            Login
+                        </button>
+                        <button 
+                            className="signup-button"
+                            onClick={() => handleNavigation("/signup")}
+                        >
+                            Sign Up
+                        </button>
+                    </div>
                 </div>
-
-            <div className="content">
+                {warningMessage && <div className="warning-message">{warningMessage}</div>}
+                <div className="content">
                     <h2>Library</h2>
                     <div className="media-grid">
-                    {mediaItems.map((item) => (
-                        <div key={item.id} className="media-item">
-                            <img src={item.imageUrl} alt={item.title} className="media-image" />
-                            <p className="media-title">{item.title}</p>
-                        </div>
-                    ))}
+                        {mediaItems.map((item) => (
+                            <div key={item.id} className="media-item">
+                               <img 
+                                    src={item.image} 
+                                    alt={item.title} 
+                                    className="media-image" 
+                                    onError={(e) => e.target.src = 'fallback-image-url.jpg'} 
+                                />
+                                <p className="media-title">{item.title}</p>
+                                <p>Author: {item.author}</p>
+                                <p>Type: {item.type}</p>
+                                <p>Availability:  
+                                   <span 
+                                     style={{
+                                        color: item.availability === 1 ? 'green' : 'red', 
+                                        fontWeight: 'bold'
+                                       }} >
+                                     {item.availability === 1 ? " Yes" : " No"}
+                                    </span>
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     );
