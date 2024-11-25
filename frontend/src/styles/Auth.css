@@ -55,3 +55,76 @@
     text-align: center;
     color: #e74c3c;
 }
+
+.subscription-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.subscription-options {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.subscription-options button {
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.subscription-options button.selected {
+    background-color: #22d357;
+    color: white;
+    border-color: #22d357;
+}
+
+.save-changes-button {
+    padding: 10px 20px;
+    background-color: #22d357;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.save-changes-button:hover {
+    background-color: #125827;
+}
+
+.payment-form-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.save-changes-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #22d357;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.save-changes-button:hover {
+    background-color: #125827;
+}

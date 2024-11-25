@@ -4,6 +4,7 @@ import "../../styles/Auth.css";
 import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -31,6 +32,9 @@ function SignUpPage() {
         } catch (error) {
             setMessage("Signup failed: " + error.response.data.message);
         }
+
+        navigate("/subscriptionsignup", { state: { formData } });
+
     };
 
     return (
