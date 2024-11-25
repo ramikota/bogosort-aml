@@ -7,6 +7,8 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
 import MediaDetails from './pages/MediaDetails';
+import Borrowed from './pages/Borrowed';
+import Sub from './pages/Subscription';
 function App() {
     return (
         <Router>
@@ -16,7 +18,9 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/media/:id" element={<MediaDetails />} />
                 <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/borrowed" element={<Borrowed />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/subscription" element={<Sub />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="*" element={<h1>404: Page Not Found</h1>} />
             </Routes>

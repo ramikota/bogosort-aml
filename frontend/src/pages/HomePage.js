@@ -2,18 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/HomePage.css";
 
+
+
 function HomePage() {
     const [mediaItems, setMediaItems] = useState([]);
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
     const [warningMessage, setWarningMessage] = useState("");
-
+ 
     useEffect(() => {
         fetch("http://localhost:3001/api/getHomeMedia")
             .then(response => response.json())
             .then(data => setMediaItems(data))
             .catch(error => console.error("Error fetching media:", error));
     }, []);
+
+    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+        if (userId) {
+          navigate(`/borrowed?userId=${userId}`); 
+        } else {
+
+          console.log('User ID is missing.');
+        }
+      };
+      const handleSub = () => { const userId = localStorage.getItem('userId'); 
+        if (userId) {
+          navigate(`/subscription?userId=${userId}`); 
+        } else {
+    
+          console.log('User ID is missing.');
+        }
+      };
 
     const handleSearch = () => {
         if (searchQuery.trim() === "") {
@@ -29,20 +48,10 @@ function HomePage() {
     };
 
     const handleMediaClick = (mediaId) => {
-         console.log("Navigating to mediaId:", mediaId); 
         navigate(`/media/${mediaId}`); // Navigate to media details page
         
     };
 
-    const handleHomeNavigation = () => {
-        setSearchQuery("");
-        setWarningMessage("");
-        fetch("http://localhost:3001/api/getHomeMedia")
-            .then(response => response.json())
-            .then(data => setMediaItems(data))
-            .catch(error => console.error("Error fetching media:", error));
-        navigate("/");
-    };
 
     const handleNavigation = (path) => {
         navigate(path);
@@ -61,15 +70,11 @@ function HomePage() {
         <div className="homepage">
             <div className="sidebar">
                 <h2>AML</h2>
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/home")}
-                >
+                <button className="sidebar-button" onClick={() => handleNavigation("/home")}>
                     Home
                 </button>
-                <button className="sidebar-button">Borrowed</button>
-                <button className="sidebar-button">Reserved</button>
-                <button className="sidebar-button">Subscription</button>
+                <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
+                <button className="sidebar-button" onClick={handleSub}>Subscription</button>
                 <button 
                     className="sidebar-button"
                     onClick={() => handleNavigation("/settings")}

@@ -6,6 +6,7 @@ import "../../styles/Auth.css";
 function LoginPage() {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -15,12 +16,19 @@ function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError(''); 
         try {
-            const response = await axios.post('http://localhost:3001/api/login', formData);
-            localStorage.setItem('token', response.data.token);
+           
+            const response = await axios.post( 'http://localhost:3001/api/login', 
+                formData, 
+                { withCredentials: true } // Include cookies with the request
+            );
             navigate('/home');
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -43,7 +51,9 @@ function LoginPage() {
                     onChange={handleChange}
                     required
                 />
-                <button type="submit">Log In</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Log In'}
+                </button>
                 {error && <p>{error}</p>}
             </form>
         </div>
