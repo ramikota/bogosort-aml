@@ -15,7 +15,7 @@ function SignUpPage() {
         country: "",
     });
     const [message, setMessage] = useState("");
-    const navigate = useNavigate(); // For redirecting after successful signup
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
