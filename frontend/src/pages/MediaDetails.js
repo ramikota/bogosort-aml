@@ -65,7 +65,12 @@ function MediaDetails() {
         </button>
         <button className="sidebar-button">Borrowed</button>
        
-        <button className="sidebar-button">Subscription</button>
+        <button 
+                    className="sidebar-button"
+                    onClick={() => handleNavigation("/subscription")}
+                >
+                    Subscription
+                </button>
         <button 
           className="sidebar-button"
           onClick={() => handleNavigation("/settings")}

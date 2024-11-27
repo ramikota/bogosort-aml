@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/SettingsPage.css"; 
 
-function SettingsPage() {
+function SubscriptionPage() {
     const navigate = useNavigate();
     
     const handleNavigation = (path) => {
@@ -50,7 +50,7 @@ function SettingsPage() {
 
             <div className="main-content">
                 <div className="navbar">
-                    <h1>Settings</h1>
+                    <h1>Subscription</h1>
                     <div className="navbar-buttons">
                         <button className="image-button" onClick={handleImageButtonClick}>
                             <img
@@ -66,7 +66,9 @@ function SettingsPage() {
                 </div>
 
                 <div className="content">
-                    <h3>Manage Settings</h3>
+                    <h3>Subscription Status: </h3>
+                    <h3>Start Date: </h3>
+                    <h3>End Date: </h3>
                 
 
                     
@@ -76,4 +78,4 @@ function SettingsPage() {
     );
 }
 
-export default SettingsPage;
+export default SubscriptionPage;

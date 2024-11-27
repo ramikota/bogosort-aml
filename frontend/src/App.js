@@ -9,6 +9,7 @@ import SettingsPage from "./pages/SettingsPage";
 import MediaDetails from './pages/MediaDetails';
 import SubscriptionSignUpPage from "./pages/auth/SubscriptionSignUp";
 import SubscribedPage from "./pages/SubscribedPage";
+import SubscriptionPage from "./pages/SubscriptionPage";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/subscribed" element={<SubscribedPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/subscription" element={<SubscriptionPage />} />
                 <Route path="*" element={<h1>404: Page Not Found</h1>} />
             </Routes>
         </Router>
