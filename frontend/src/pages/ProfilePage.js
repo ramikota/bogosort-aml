@@ -16,6 +16,14 @@ function ProfilePage() {
     const handleNavigation = (path) => {
         navigate(path); 
     };
+    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+        if (userId) {
+          navigate(`/borrowed?userId=${userId}`); 
+        } else {
+
+          console.log('User ID is missing.');
+        }
+      };
 
     const handleLogout = () => {
         localStorage.removeItem('token'); 
@@ -33,8 +41,16 @@ function ProfilePage() {
 
     const handleSaveChanges = () => {
         setMessage("Your details have been updated.");
-        // simulation
+        
     };
+    const handleSub = () => { const userId = localStorage.getItem('userId'); 
+        if (userId) {
+          navigate(`/subscription?userId=${userId}`); 
+        } else {
+    
+          console.log('User ID is missing.');
+        }
+      };
 
     return (
         <div className="homepage">
@@ -46,6 +62,12 @@ function ProfilePage() {
                 >
                     Home
                 </button>
+
+                <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
+                
+                <button className="sidebar-button" onClick={handleSub}>Subscription</button>
+
+
                 <button className="sidebar-button">Borrowed</button>
                 
                 <button 
@@ -54,6 +76,7 @@ function ProfilePage() {
                 >
                     Subscription
                 </button>
+
                 <button 
                     className="sidebar-button"
                     onClick={() => handleNavigation("/settings")}

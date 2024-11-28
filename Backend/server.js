@@ -1,44 +1,48 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser'); // Import cookie-parser
 const UserController = require('./controllers/userController');
 const MediaController = require('./controllers/mediaController');
-const cors = require('cors');
+const BorrowController = require("./controllers/borrowController");
+const SubController = require("./controllers/subscriptionController");
+
+dotenv.config(); 
 
 
-// Initialize Express app
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+
+// Middleware configuration
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  credentials: true                
+}));
+app.use(bodyParser.json());        
+app.use(cookieParser());           
 
 const router = express.Router();
 app.use('/api', router);
 
 // User Routes
-router.post('/login', UserController.login);  // for login
-router.post('/loginAccountant', UserController.loginAccountant);  // for login
-router.post('/register', UserController.register);  // for registration
+router.post('/login', UserController.login);  
+router.post('/loginAccountant', UserController.loginAccountant);  
+router.post('/register', UserController.register);  
 
 // Media Routes
-router.get('/getHomeMedia', MediaController.getHomeMedia); // Endpoint for fetching all media
-router.get('/searchMedia', MediaController.searchMedia); // Endpoint for searching media
+router.get('/getHomeMedia', MediaController.getHomeMedia); 
+router.get('/searchMedia', MediaController.searchMedia); 
+router.get('/media/:mediaId', MediaController.getMediaDetails); 
 
-// Route to get media details and availability by branch
-router.get('/media/:mediaId', MediaController.getMediaDetails);
+// Borrow Routes
+router.post('/borrow', BorrowController.borrowMedia);
+router.get('/borrowed', BorrowController.getBorrowedMedia);
 
-// Route to borrow a media item
-router.post('/borrow', MediaController.borrowMedia);
-
-// Home Route
-app.get("/", (req, res) => {
-  res.send("Library Management System");
-});
-
+// Subscription Routes
+router.get('/subscription', SubController.getSubscription);
 
 // Set the port for the server
 const PORT = 3001;
-
-  app.listen(PORT, () => {
-    console.log("The server is running on port number: " + PORT);
-  
+app.listen(PORT, () => {
+  console.log("The server is running on port number: " + PORT);
 });

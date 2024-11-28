@@ -1,6 +1,7 @@
 const Media = require('../models/Media');
 const BranchMedia = require('../models/branchMedia');
 
+
 class MediaController {
   // Fetch media for the homepage
   static async getHomeMedia(req, res) {
@@ -10,7 +11,7 @@ class MediaController {
       const limitedMedia = shuffledMedia.slice(0, 100); 
       res.status(200).json(limitedMedia);
     } catch (err) {
-      console.error('Error fetching homepage media:', err.message);
+    
       res.status(500).json({ message: 'Error fetching homepage media' });
     }
   }
@@ -25,29 +26,11 @@ class MediaController {
   
       res.status(200).json({ mediaDetails, availability });
     } catch (err) {
-      console.error('Error fetching media details:', err.message);
+    
       res.status(500).json({ message: 'Error fetching media details' });
     }
   }
-
-  // Borrow media
-  static async borrowMedia(req, res) {
-    const { mediaId, branchId } = req.body;
-
-    try {
-      const result = await BranchMedia.checkMediaInBranch(branchId, mediaId); 
-
-      if (result[0].availableCount > 0) {
-        await BranchMedia.updateMediaAvailability(branchId, mediaId, -1); 
-
-        res.status(200).json({ message: 'Item borrowed successfully' });
-      } else {
-        res.status(400).json({ message: 'Item not available at this branch' });
-      }
-    } catch (err) {
-      res.status(500).json({ message: 'Error borrowing media' });
-    }
-  }
+  
 
   // Search media by title or author
   static async searchMedia(req, res) {

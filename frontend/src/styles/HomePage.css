@@ -197,3 +197,94 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.success-message {
+    background-color: #28a745;  
+    color: white;
+    padding: 10px 20px; 
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;  
+    position: fixed;  
+    top: 50%;  
+    left: 50%;  
+    transform: translate(-50%, -50%); 
+    width: 200px;  
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .error-message {
+    background-color: #dc3545;  
+    color: white;
+    padding: 10px 20px;  
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;  
+    position: fixed; 
+    top: 50%;
+    left: 50%;  
+    transform: translate(-50%, -50%);  
+    width: 200px;  
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+ 
+  .hide-message {
+    opacity: 0;
+  }
+
+
+  
+ 
+#borrowed-media-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  #borrowed-media-table th,
+  #borrowed-media-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  #borrowed-media-table th {
+    font-weight: bold;
+    background-color: #f4f4f4;
+  }
+  
+  /* Row styling */
+  #borrowed-media-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  #borrowed-media-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Button styling */
+  .return-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .return-button:hover {
+    background-color: #45a049;
+  }
+  
+
+  #borrowed-media-table td[colspan="4"] {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #888;
+  }
+  

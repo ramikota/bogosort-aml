@@ -17,7 +17,22 @@ function SettingsPage() {
     const handleImageButtonClick = () => {
         navigate('/profile'); 
     };
+    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+        if (userId) {
+          navigate(`/borrowed?userId=${userId}`); 
+        } else {
 
+          console.log('User ID is missing.');
+        }
+      };
+      const handleSub = () => { const userId = localStorage.getItem('userId'); 
+        if (userId) {
+          navigate(`/subscription?userId=${userId}`); 
+        } else {
+    
+          console.log('User ID is missing.');
+        }
+      };
    
 
 
@@ -32,6 +47,12 @@ function SettingsPage() {
                 >
                     Home
                 </button>
+
+                <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
+                
+                <button className="sidebar-button" onClick={handleSub}>Subscription</button>
+               
+
                 <button className="sidebar-button">Borrowed</button>
                 
                 <button 
@@ -40,6 +61,7 @@ function SettingsPage() {
                 >
                     Subscription
                 </button>
+
                 <button 
                     className="sidebar-button"
                     onClick={() => handleNavigation("/settings")}
