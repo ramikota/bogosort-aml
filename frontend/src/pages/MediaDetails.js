@@ -96,7 +96,7 @@ function MediaDetails() {
         <button className="sidebar-button" onClick={() => handleNavigation("/home")}>Home</button>
         <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
         <button className="sidebar-button" onClick={handleSub}>Subscription</button>
-        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button
+        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button>
 
       </div>
 
@@ -142,6 +142,7 @@ function MediaDetails() {
       </div>
     </div>
   );
-}
+
+  }
 
 export default MediaDetails;

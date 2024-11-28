@@ -53,21 +53,7 @@ function SettingsPage() {
                 <button className="sidebar-button" onClick={handleSub}>Subscription</button>
                
 
-                <button className="sidebar-button">Borrowed</button>
-                
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/subscription")}
-                >
-                    Subscription
-                </button>
-
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/settings")}
-                >
-                    Settings
-                </button>
+              
             </div>
 
             <div className="main-content">
