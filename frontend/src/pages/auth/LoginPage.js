@@ -33,8 +33,8 @@ function LoginPage() {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="auth-container">
+            <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="text"
                     name="username"

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon /Users/habib/Documents/bogosort-aml/Backend/server.js"
+    "devStart": "nodemon /Users/power/Documents/bogosort-aml/Backend/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "course": "^0.0.1",
     "crypto": "^1.0.1",
     "dot": "^1.1.3",
     "dotenv": "^16.4.5",
@@ -30,3 +31,4 @@
     "react-router-dom": "^6.28.0"
   }
 }
+

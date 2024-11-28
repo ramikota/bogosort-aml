@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/SettingsPage.css"; 
 
-function SettingsPage() {
+function SubscriptionPage() {
     const navigate = useNavigate();
     
     const handleNavigation = (path) => {
@@ -17,22 +17,7 @@ function SettingsPage() {
     const handleImageButtonClick = () => {
         navigate('/profile'); 
     };
-    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
-        if (userId) {
-          navigate(`/borrowed?userId=${userId}`); 
-        } else {
 
-          console.log('User ID is missing.');
-        }
-      };
-      const handleSub = () => { const userId = localStorage.getItem('userId'); 
-        if (userId) {
-          navigate(`/subscription?userId=${userId}`); 
-        } else {
-    
-          console.log('User ID is missing.');
-        }
-      };
    
 
 
@@ -47,12 +32,6 @@ function SettingsPage() {
                 >
                     Home
                 </button>
-
-                <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
-                
-                <button className="sidebar-button" onClick={handleSub}>Subscription</button>
-               
-
                 <button className="sidebar-button">Borrowed</button>
                 
                 <button 
@@ -61,7 +40,6 @@ function SettingsPage() {
                 >
                     Subscription
                 </button>
-
                 <button 
                     className="sidebar-button"
                     onClick={() => handleNavigation("/settings")}
@@ -72,7 +50,7 @@ function SettingsPage() {
 
             <div className="main-content">
                 <div className="navbar">
-                    <h1>Settings</h1>
+                    <h1>Subscription</h1>
                     <div className="navbar-buttons">
                         <button className="image-button" onClick={handleImageButtonClick}>
                             <img
@@ -88,7 +66,9 @@ function SettingsPage() {
                 </div>
 
                 <div className="content">
-                    <h3>Manage Settings</h3>
+                    <h3>Subscription Status: </h3>
+                    <h3>Start Date: </h3>
+                    <h3>End Date: </h3>
                 
 
                     
@@ -98,4 +78,4 @@ function SettingsPage() {
     );
 }
 
-export default SettingsPage;
+export default SubscriptionPage;

@@ -62,9 +62,20 @@ function ProfilePage() {
                 >
                     Home
                 </button>
+
                 <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
                 
                 <button className="sidebar-button" onClick={handleSub}>Subscription</button>
+
+
+                <button className="sidebar-button">Borrowed</button>
+                
+                <button 
+                    className="sidebar-button"
+                    onClick={() => handleNavigation("/subscription")}
+                >
+                    Subscription
+                </button>
 
                 <button 
                     className="sidebar-button"

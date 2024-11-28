@@ -12,6 +12,7 @@ import Sub from './pages/Subscription';
 
 import SubscriptionSignUpPage from "./pages/auth/SubscriptionSignUp";
 import SubscribedPage from "./pages/SubscribedPage";
+import SubscriptionPage from "./pages/SubscriptionPage";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/subscription" element={<Sub />} />
                 <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/subscription" element={<SubscriptionPage />} />
                 <Route path="*" element={<h1>404: Page Not Found</h1>} />
             </Routes>
         </Router>

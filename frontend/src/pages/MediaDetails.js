@@ -92,10 +92,12 @@ function MediaDetails() {
     <div className="homepage">
       <div className="sidebar">
         <h2>AML</h2>
+
         <button className="sidebar-button" onClick={() => handleNavigation("/home")}>Home</button>
         <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
         <button className="sidebar-button" onClick={handleSub}>Subscription</button>
-        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button>
+        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button
+
       </div>
 
       <div className="main-content">

@@ -52,7 +52,6 @@ function SubscriptionSignUpPage() {
         };
         console.log("Final signup data:", signupData);
 
-        alert("Signup and subscription completed!");
 
         navigate("/subscribed");
     };
@@ -76,21 +75,14 @@ function SubscriptionSignUpPage() {
                         <h4>Billing Address</h4>
                         <input
                             type="text"
-                            name="address1"
+                            name="address"
                             placeholder="Address Line 1"
-                            value={paymentData.address1}
+                            value={paymentData.address}
                             onChange={handlePaymentChange}
                             required
                         />
 
-                        <input
-                            type="text"
-                            name="address2"
-                            placeholder="Address Line 2"
-                            value={paymentData.address2}
-                            onChange={handlePaymentChange}
-                            required
-                        />
+            
 
                         <input
                             type="text"
