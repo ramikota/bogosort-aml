@@ -3,6 +3,21 @@ import { useNavigate } from 'react-router-dom';
 
 function PaymentHistory() {
     const navigate = useNavigate();
+
+    /*     const [payments, setPayments] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/getPayments")
+            .then(response => response.json())
+            .then(data => {
+                if (data > 0) {
+                    setPayments(data)
+                } else {
+                    setErrorMessage("There is no member history.");
+                }
+    }, []); */
+
     const paymentInfo = [
         { amount: '£4.99', method: 'Direct Debit', date: '01/11/2024'},
         { amount: '£4.99', method: 'Direct Debit', date: '01/10/2024'},

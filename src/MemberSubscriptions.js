@@ -6,6 +6,20 @@ import "./stylesheet.css";
 function MemberSubscriptions() {
     const navigate = useNavigate();
 
+    /*     const [subscriptions, setSubscriptions] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/getSubscriptions")
+            .then(response => response.json())
+            .then(data => {
+                if (data > 0) {
+                    setSubscriptions(data)
+                } else {
+                    setErrorMessage("There is no payment history.");
+                }
+    }, []); */
+
     const members = [
         { name: 'John', subscriptionAmount: '£4.99'},
         { name: 'James', subscriptionAmount: '£4.99'},
