@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+
   "scripts": {
     "devStart": "nodemon /Users/habib/Documents/bogosort-aml/Backend/server.js"
   },
@@ -10,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "nodemon": "^3.1.7"
   },
@@ -31,4 +33,6 @@
     "react-router-dom": "^6.28.0"
   }
 }
+
+
 
