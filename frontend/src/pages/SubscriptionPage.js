@@ -22,10 +22,13 @@ function SubscriptionPage() {
         }
       };
 
-    const handleImageButtonClick = () => {
-        navigate('/profile'); 
+    const handleProfileButtonClick = () => {
+        navigate('/profile');
     };
 
+    const handleSettingsButtonClick = () => {
+        navigate('/settings');
+    };
    
 
 
@@ -48,22 +51,24 @@ function SubscriptionPage() {
                 >
                     Subscription
                 </button>
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/settings")}
-                >
-                    Settings
-                </button>
+                
             </div>
 
             <div className="main-content">
                 <div className="navbar">
                     <h1>Subscription</h1>
                     <div className="navbar-buttons">
-                        <button className="image-button" onClick={handleImageButtonClick}>
+                    <button className="image-button" onClick={handleProfileButtonClick}>
                             <img
                                 src="/profile.png"
                                 alt="Profile"
+                                className="image-icon"
+                            />
+                        </button>
+                        <button className="image-button" onClick={handleSettingsButtonClick}>
+                            <img
+                                src="/settings.png"
+                                alt="Settings"
                                 className="image-icon"
                             />
                         </button>

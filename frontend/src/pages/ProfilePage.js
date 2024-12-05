@@ -38,8 +38,12 @@ function ProfilePage() {
         }
       };
 
-    const handleImageButtonClick = () => {
-        navigate('/profile'); 
+    const handleProfileButtonClick = () => {
+        navigate('/profile');
+    };
+
+    const handleSettingsButtonClick = () => {
+        navigate('/settings');
     };
 
     const handleChange = (e) => {
@@ -75,32 +79,24 @@ function ProfilePage() {
                 
                 <button className="sidebar-button" onClick={handleSub}>Subscription</button>
 
-
-                <button className="sidebar-button">Borrowed</button>
-                
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/subscription")}
-                >
-                    Subscription
-                </button>
-
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/settings")}
-                >
-                    Settings
-                </button>
+               
             </div>
 
             <div className="main-content">
                 <div className="navbar">
                     <h1>Profile</h1>
                     <div className="navbar-buttons">
-                        <button className="image-button" onClick={handleImageButtonClick}>
+                    <button className="image-button" onClick={handleProfileButtonClick}>
                             <img
                                 src="/profile.png"
                                 alt="Profile"
+                                className="image-icon"
+                            />
+                        </button>
+                        <button className="image-button" onClick={handleSettingsButtonClick}>
+                            <img
+                                src="/settings.png"
+                                alt="Settings"
                                 className="image-icon"
                             />
                         </button>
