@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
+import AccountantLogin from "./pages/auth/AccountantLogin";
 import SignUpPage from "./pages/auth/SignUpPage";
 import OpeningPage from "./pages/OpeningPage";
 import HomePage from "./pages/HomePage";
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/" element={<OpeningPage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/accountantlogin" element={<AccountantLogin />} />
                 <Route path="/media/:id" element={<MediaDetails />} />
                 <Route path="/signup" element={<SignUpPage />} />
 

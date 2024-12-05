@@ -1,12 +1,14 @@
 .auth-container {
-    background-color: #6258eb; 
-    min-height: 100vh;        
-    width: 100vw;               
     display: flex;
-    justify-content: center;    
-    align-items: center;       
-    padding: 20px;              
-    box-sizing: border-box;     
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #6258eb;
+    gap: 10px; 
 }
 
 .auth-container h2 {
@@ -62,6 +64,10 @@
     align-items: center;
     padding: 20px;
     background-color:#6258eb;
+    min-height: 100vh; /* Ensure it covers the full viewport height */
+    box-sizing: border-box; /* Include padding in height calculation */
+    width: 100%; /* Ensure full width */
+    color:#fff;
 }
 
 .subscription-options {
@@ -72,8 +78,8 @@
 
 .subscription-options button {
     padding: 15px 20px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    border: 1px solid #22d357;
+    background-color: #22d357;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
@@ -84,7 +90,10 @@
     color: white;
     border-color: #22d357;
 }
-
+.subscription-options button:hover {
+    background-color: #125827;
+    border-color:#125827;
+}
 .save-changes-button {
     padding: 10px 20px;
     background-color: #22d357;
@@ -105,6 +114,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
+    color:#000000
 }
 
 .payment-form input {
@@ -128,4 +138,19 @@
 
 .save-changes-button:hover {
     background-color: #125827;
+}
+.accountant-login-button {
+    margin-top: 15px; 
+    align-self: center; 
+    padding: 10px 20px; 
+    background-color: #0db6b6; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.accountant-login-button:hover {
+    background-color: #095959; 
 }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../../styles/Auth.css";
 
-function LoginPage() {
+function AccountantLogin() {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -12,9 +12,6 @@ function LoginPage() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-    };
-    const handleAccountantLogin = () => {
-        navigate('/accountantlogin'); 
     };
 
     const handleSubmit = async (e) => {
@@ -41,7 +38,7 @@ function LoginPage() {
                 <input
                     type="text"
                     name="username"
-                    placeholder="Username"
+                    placeholder="Accountant Username"
                     value={formData.username}
                     onChange={handleChange}
                     required
@@ -49,22 +46,18 @@ function LoginPage() {
                 <input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Accountant Password"
                     value={formData.password}
                     onChange={handleChange}
                     required
                 />
                 <button type="submit" disabled={loading}>
-                    {loading ? 'Logging in...' : 'Log In'}
+                    {loading ? 'Logging in...' : 'Accountant Log In'}
                 </button>
-                
                 {error && <p>{error}</p>}
             </form>
-            <button className="accountant-login-button" onClick={handleAccountantLogin}>
-                Login as an Accountant
-            </button>
         </div>
     );
 }
 
-export default LoginPage;
+export default AccountantLogin;
