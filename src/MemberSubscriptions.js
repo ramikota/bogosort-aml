@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PaymentHistory from './PaymentHistory';
 import "./stylesheet.css";
+import * as XLSX from 'xlsx';
 
 function MemberSubscriptions() {
     const navigate = useNavigate();
@@ -32,6 +33,13 @@ function MemberSubscriptions() {
         navigate('/PaymentHistory');
     }
 
+    const exportData = () => {
+        const worksheet = XLSX.utils.json_to_sheet(members);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Members');
+        XLSX.writeFile(workbook, 'Subscriptions.xlsx');
+    };
+
     return (
         <div className="main">
             <h1>Member Subscriptions</h1>
@@ -51,9 +59,7 @@ function MemberSubscriptions() {
                     )
                 })}
             </table>
-            <button className="export-button" onClick="">
-                Export Finances
-            </button>
+            <button className="export-button" onClick={exportData}>Export Finances</button>
         </div>
         );
 }
