@@ -4,12 +4,11 @@ const Subscription = require('../models/Subscription');
 class SubController {
     static async getSubscription(req, res) {
         try {
-            const { userId } = req.query;
+            const { id: userId } = req.user; 
 
             if (!userId) {
                 return res.status(400).json({ message: 'User ID is required' });
             }
-
             const subscription = await Subscription.findByUserId(userId);
 
             if (!subscription || subscription.length === 0) {

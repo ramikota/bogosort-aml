@@ -1,4 +1,4 @@
-const promisePool = require('../config/db'); // Importing the promisePool
+const promisePool = require('../config/db'); 
 
 const BranchMedia = {
   // Get availability of a specific media across branches
@@ -33,7 +33,7 @@ const BranchMedia = {
 `;
     try {
       const [results] = await promisePool.query(query, [branchId, mediaId]);
-      console.log("Query results:", results); // Log the results for debugging
+
       return results;
     } catch (err) {
       throw new Error('Error checking media in branch: ' + err.message);

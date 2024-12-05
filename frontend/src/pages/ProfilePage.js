@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/ProfilePage.css"; 
+import Cookies from 'js-cookie'; 
+
 
 function ProfilePage() {
     const navigate = useNavigate();
@@ -24,11 +26,17 @@ function ProfilePage() {
           console.log('User ID is missing.');
         }
       };
-
-    const handleLogout = () => {
-        localStorage.removeItem('token'); 
-        navigate('/'); 
-    };
+      
+      const handleLogout = async () => {
+        try {
+      
+         navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+          Cookies.remove('userId');
+          navigate('/');
+        } catch (err) {
+          console.error('Error during logout', err);
+        }
+      };
 
     const handleImageButtonClick = () => {
         navigate('/profile'); 

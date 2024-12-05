@@ -2,14 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser'); // Import cookie-parser
+const cookieParser = require('cookie-parser'); 
 const UserController = require('./controllers/userController');
 const MediaController = require('./controllers/mediaController');
 const BorrowController = require("./controllers/borrowController");
 const SubController = require("./controllers/subscriptionController");
+const authenticateToken = require('./middleware/authmiddleware'); 
 
 dotenv.config(); 
-
 
 const app = express();
 
@@ -30,18 +30,22 @@ router.post('/loginAccountant', UserController.loginAccountant);
 router.post('/register', UserController.register);  
 
 // Media Routes
-router.get('/getHomeMedia', MediaController.getHomeMedia); 
+router.get('/getHomeMedia',  MediaController.getHomeMedia); 
 router.get('/searchMedia', MediaController.searchMedia); 
-router.get('/media/:mediaId', MediaController.getMediaDetails); 
+router.get('/media/:mediaId', authenticateToken, MediaController.getMediaDetails); 
 
-// Borrow Routes
-router.post('/borrow', BorrowController.borrowMedia);
-router.get('/borrowed', BorrowController.getBorrowedMedia);
+// Borrow Routes 
+router.post('/borrow', authenticateToken, BorrowController.borrowMedia);  
+router.get('/borrowed', authenticateToken, BorrowController.getBorrowedMedia);
+
 
 // Subscription Routes
-router.get('/subscription', SubController.getSubscription);
+router.get('/subscription', authenticateToken, SubController.getSubscription); 
 
-// Set the port for the server
+// Logout Route
+app.post('/logout', UserController.logout);
+
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log("The server is running on port number: " + PORT);

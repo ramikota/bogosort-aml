@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/HomePage.css";
-
-
+import Cookies from 'js-cookie'; 
 
 function HomePage() {
     const [mediaItems, setMediaItems] = useState([]);
@@ -17,15 +16,16 @@ function HomePage() {
             .catch(error => console.error("Error fetching media:", error));
     }, []);
 
-    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+    const handleBorrowed = () => { const userId = Cookies.get('userId');
         if (userId) {
           navigate(`/borrowed?userId=${userId}`); 
+          
         } else {
 
           console.log('User ID is missing.');
         }
       };
-      const handleSub = () => { const userId = localStorage.getItem('userId'); 
+      const handleSub = () => { const userId = Cookies.get('userId');
         if (userId) {
           navigate(`/subscription?userId=${userId}`); 
         } else {
@@ -48,7 +48,7 @@ function HomePage() {
     };
 
     const handleMediaClick = (mediaId) => {
-        navigate(`/media/${mediaId}`); // Navigate to media details page
+        navigate(`/media/${mediaId}`);
         
     };
 
@@ -57,10 +57,16 @@ function HomePage() {
         navigate(path);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token'); 
-        navigate('/'); 
-    };
+    const handleLogout = async () => {
+        try {
+      
+         navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+          Cookies.remove('userId');
+          navigate('/');
+        } catch (err) {
+          console.error('Error during logout', err);
+        }
+      };
 
     const handleImageButtonClick = () => {
         navigate('/profile');
@@ -76,14 +82,6 @@ function HomePage() {
 
                 <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
                 <button className="sidebar-button" onClick={handleSub}>Subscription</button>
-
-                <button className="sidebar-button">Borrowed</button>
-                <button 
-                    className="sidebar-button"
-                    onClick={() => handleNavigation("/subscription")}
-                >
-                    Subscription
-                </button>
 
                 <button 
                     className="sidebar-button"

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/SettingsPage.css"; 
+import Cookies from 'js-cookie'; 
+
 
 function SubscriptionPage() {
     const navigate = useNavigate();
@@ -9,10 +11,16 @@ function SubscriptionPage() {
         navigate(path); 
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token'); 
-        navigate('/'); 
-    };
+    const handleLogout = async () => {
+        try {
+      
+         navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+          Cookies.remove('userId');
+          navigate('/');
+        } catch (err) {
+          console.error('Error during logout', err);
+        }
+      };
 
     const handleImageButtonClick = () => {
         navigate('/profile'); 

@@ -1,26 +1,41 @@
-const connection = require('../config/db');
+const promisePool = require('../config/db');  
 
 class Branch {
   // Find all branches
-  static findAll(callback) {
+  static async findAll() {
     const query = 'SELECT * FROM Branch';
-    connection.query(query, callback);
+    try {
+      const [rows] = await promisePool.query(query);
+      return rows;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
   }
 
   // Find branch by ID
-  static findById(branchId, callback) {
+  static async findById(branchId) {
     const query = 'SELECT * FROM Branch WHERE id = ?';
-    connection.query(query, [branchId], callback);
+    try {
+      const [rows] = await promisePool.query(query, [branchId]);
+      return rows;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
   }
 
   // Update an existing branch
-  static update(branchId, { name, address, email }, callback) {
+  static async update(branchId, { name, address, email }) {
     const query = `
       UPDATE Branch 
       SET name = ?, address = ?, email = ? 
       WHERE id = ?
     `;
-    connection.query(query, [name, address, email, branchId], callback);
+    try {
+      const [result] = await promisePool.query(query, [name, address, email, branchId]);
+      return result;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
   }
 }
 

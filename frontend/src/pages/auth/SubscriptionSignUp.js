@@ -5,8 +5,6 @@ import "../../styles/Auth.css";
 function SubscriptionSignUpPage() {
     const navigate = useNavigate();
     const location = useLocation();
-
-    // Access the signup form data from state
     const { formData } = location.state || {};
 
     const [selectedPlan, setSelectedPlan] = useState("");

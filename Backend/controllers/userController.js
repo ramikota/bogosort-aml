@@ -36,6 +36,7 @@ class UserController {
       if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
+
       // Generating JWT token
       const token = jwt.sign(
         { id: user.id, username: user.username, role: user.role },
@@ -43,14 +44,14 @@ class UserController {
         { expiresIn: '1h' }
       );
 
+      // Set the token in the cookie
       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV,
-        sameSite: 'Strict',  
-        maxAge: 360000 
+        secure: process.env.NODE_ENV === 'development',
+        sameSite: 'Strict',
+        maxAge: 3600000  // 1 hour expiration
       });
-
-      res.status(200).json({ message: 'Login successful', userId: user.id });
+      res.status(200).json({ message: 'Login successful', userId: user.id, token });
 
     } catch (err) {
       console.error(err);
@@ -81,26 +82,36 @@ class UserController {
         { expiresIn: '1h' }
       );
       
-      res.cookie('token', token, {
+       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV,  
-        sameSite: 'Strict',  
+        secure: process.env.NODE_ENV === 'development',
+        sameSite: 'Strict',
         maxAge: 3600000  
       });
 
-      res.status(200).json({ message: 'Login successful', userId: user.id });
+      res.status(200).json({ message: 'Login successful' });
 
-    }catch (err) {
+    } catch (err) {
       console.error(err);
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
-  // Logout method
-  static async logout(req, res) {
-    res.clearCookie('token');  // Clear the authentication cookie
-    res.status(200).json({ message: 'Logout successful' });
-  }
 
+  static async logout(req, res) {
+    try {
+      // Clear the authentication cookie
+      res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'development',
+        sameSite: 'Strict',
+        path: '/', 
+      });
+      res.status(200).json({ message: 'Logout successful' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error logging out' });
+    }
+  }
 }
 
 module.exports = UserController;

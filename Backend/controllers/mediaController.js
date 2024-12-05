@@ -3,11 +3,11 @@ const BranchMedia = require('../models/branchMedia');
 
 
 class MediaController {
-  // Fetch media for the homepage
+ 
   static async getHomeMedia(req, res) {
     try {
-      const media = await Media.findAll(); // Fetch all media
-      const shuffledMedia = media.sort(() => Math.random() - 0.5); // Shuffle the media randomly
+      const media = await Media.findAll(); 
+      const shuffledMedia = media.sort(() => Math.random() - 0.5); 
       const limitedMedia = shuffledMedia.slice(0, 100); 
       res.status(200).json(limitedMedia);
     } catch (err) {
@@ -31,8 +31,6 @@ class MediaController {
     }
   }
   
-
-  // Search media by title or author
   static async searchMedia(req, res) {
     const { query } = req.query;
 
@@ -49,5 +47,6 @@ class MediaController {
     }
   }
 }
+
 
 module.exports = MediaController;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie'; 
 import "../../styles/Auth.css";
 
 function LoginPage() {
@@ -14,23 +15,29 @@ function LoginPage() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(''); 
-        try {
-           
-            const response = await axios.post( 'http://localhost:3001/api/login', 
-                formData, 
-                { withCredentials: true } // Include cookies with the request
-            );
-            navigate('/home');
-        } catch (err) {
-            setError(err.response?.data?.message || 'An error occurred');
-        } finally {
-            setLoading(false);
-        }
-    };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(''); 
+    try {
+        const response = await axios.post( 
+            'http://localhost:3001/api/login', 
+            formData, 
+            { withCredentials: true }
+        );
+
+        const { token, userId } = response.data;
+
+        Cookies.set('token', token, { expires: 1 });
+        Cookies.set('userId', userId, { expires: 1 });
+
+        navigate('/home');
+    } catch (err) {
+        setError(err.response?.data?.message || 'An error occurred');
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <div className="auth-container">
