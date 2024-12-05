@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/SettingsPage.css"; 
+import Cookies from 'js-cookie'; 
+
 
 function SettingsPage() {
     const navigate = useNavigate();
@@ -9,28 +11,38 @@ function SettingsPage() {
         navigate(path); 
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token'); 
-        navigate('/'); 
-    };
+    const handleLogout = async () => {
+        try {
+      
+         navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+          Cookies.remove('userId');
+          navigate('/');
+        } catch (err) {
+          console.error('Error during logout', err);
+        }
+      };
 
     const handleProfileButtonClick = () => {
         navigate('/profile');
     };
+
+    const handleBorrowed = () => {
+        const userId = Cookies.get('userId'); 
+=======
 
     const handleSettingsButtonClick = () => {
         navigate('/settings');
     };
 
     const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
-        if (userId) {
-          navigate(`/borrowed?userId=${userId}`); 
-        } else {
 
+        if (userId) {
+          navigate(`/borrowed?userId=${userId}`);
+        } else {
           console.log('User ID is missing.');
         }
       };
-      const handleSub = () => { const userId = localStorage.getItem('userId'); 
+      const handleSub = () => {  const userId = Cookies.get('userId'); 
         if (userId) {
           navigate(`/subscription?userId=${userId}`); 
         } else {
@@ -39,9 +51,6 @@ function SettingsPage() {
         }
       };
    
-
-
-
     return (
         <div className="homepage">
             <div className="sidebar">
@@ -58,7 +67,16 @@ function SettingsPage() {
                 <button className="sidebar-button" onClick={handleSub}>Subscription</button>
                
 
+
+                <button 
+                    className="sidebar-button"
+                    onClick={() => handleNavigation("/settings")}
+                >
+                    Settings
+                </button>
+=======
               
+#
             </div>
 
             <div className="main-content">

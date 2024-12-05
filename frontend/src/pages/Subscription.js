@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 function SubscriptionPage() {
   const [subscription, setSubscription] = useState(null);
@@ -8,40 +9,57 @@ function SubscriptionPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId"); // Assuming you're using userId from localStorage
-
-    if (userId) {
-      fetch(`http://localhost:3001/api/subscription?userId=${userId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.subscription) {
-            setSubscription(data.subscription);
-          } else {
-            setError("No subscription found.");
-          }
-        })
-        .catch((err) => {
-          setError("Error fetching subscription data.");
-          console.error("Error fetching subscription data:", err);
-        })
-        .finally(() => setLoading(false));
-    } else {
-      setError("User ID is missing.");
+    const token = Cookies.get('token');
+    if (!token) {
+      setError("No authentication token found.");
       setLoading(false);
+      return;
     }
+
+    fetch('http://localhost:3001/api/subscription', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.subscription) {
+          setSubscription(data.subscription);
+        } else {
+          setError("No subscription found.");
+        }
+      })
+      .catch((err) => {
+        setError("Error fetching subscription data.");
+        console.error("Error fetching subscription data:", err);
+      })
+      .finally(() => setLoading(false));
   }, []);
-
-
 
   const handleNavigation = (path) => {
     navigate(path);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/"); // Redirect to login page
+  const handleLogout = async () => {
+    try {
+  
+     navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+      Cookies.remove('userId');
+      navigate('/');
+    } catch (err) {
+      console.error('Error during logout', err);
+    }
   };
 
+
+  const handleImageButtonClick = () => {
+    navigate("/profile");
+  };
+
+  const handleBorrowed = () => {
+    const userId = Cookies.get('userId'); 
+=======
   const handleProfileButtonClick = () => {
     navigate('/profile');
 };
@@ -50,10 +68,10 @@ const handleSettingsButtonClick = () => {
     navigate('/settings');
 };
   const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
-    if (userId) {
-      navigate(`/borrowed?userId=${userId}`); 
-    } else {
 
+    if (userId) {
+      navigate(`/borrowed?userId=${userId}`);
+    } else {
       console.log('User ID is missing.');
     }
   };
@@ -65,8 +83,15 @@ const handleSettingsButtonClick = () => {
         <button className="sidebar-button" onClick={() => handleNavigation("/home")}>
           Home
         </button>
+
+        <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>
+        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>
+          Settings
+        </button>
+=======
                 <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
                 
+
       </div>
 
       <div className="main-content">
@@ -95,7 +120,7 @@ const handleSettingsButtonClick = () => {
         <div className="content">
           <h2>Subscription Details</h2>
           {loading && <p>Loading...</p>}
-          {error && <p>{error}</p>}
+          {error && <p className="error-message">{error}</p>}
 
           {subscription && (
             <table id="borrowed-media-table">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; 
 
 function BorrowedPage() {
   const [borrowedMedia, setBorrowedMedia] = useState([]);
@@ -7,14 +8,19 @@ function BorrowedPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userId = localStorage.getItem('userId'); // Assuming you're using userId from localStorage
-
+useEffect(() => {
+    const userId = Cookies.get('userId');
     if (userId) {
-      fetch(`http://localhost:3001/api/borrowed?userId=${userId}`)
+      fetch(`http://localhost:3001/api/borrowed?userId=${userId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${Cookies.get('token')}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
-          if (data.borrowedItems) {
+  
+          if (data.borrowedItems && data.borrowedItems.length > 0) {
             setBorrowedMedia(data.borrowedItems);
           } else {
             setError("No borrowed media found.");
@@ -29,49 +35,61 @@ function BorrowedPage() {
       setError("User ID is missing.");
       setLoading(false);
     }
-  }, []);
+}, []);
 
   const handleReturn = (mediaId) => {
-    const userId = localStorage.getItem('userId');
+    const userId = Cookies.get('userId'); 
+
     if (userId) {
       fetch(`http://localhost:3001/api/return/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${Cookies.get('token')}`, 
         },
         body: JSON.stringify({ mediaId }),
       })
         .then(response => response.json())
         .then(() => {
-          
-          setBorrowedMedia(borrowedMedia.filter(item => item.id !== mediaId));
+          setBorrowedMedia(prevMedia => prevMedia.filter(item => item.id !== mediaId));
         })
         .catch(error => console.error("Error returning the media:", error));
     }
   };
 
-
   const handleNavigation = (path) => {
     navigate(path);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/'); 
+  const handleLogout = async () => {
+    try {
+  
+     navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+      Cookies.remove('userId');
+      navigate('/');
+    } catch (err) {
+      console.error('Error during logout', err);
+    }
   };
 
   const handleProfileButtonClick = () => {
     navigate('/profile');
+
+  };
+
+  const handleSub = () => {
+    const userId = Cookies.get('userId');
+=======
 };
 
 const handleSettingsButtonClick = () => {
     navigate('/settings');
 };
   const handleSub = () => { const userId = localStorage.getItem('userId'); 
-    if (userId) {
-      navigate(`/subscription?userId=${userId}`); 
-    } else {
 
+    if (userId) {
+      navigate(`/subscription?userId=${userId}`);
+    } else {
       console.log('User ID is missing.');
     }
   };
@@ -111,41 +129,41 @@ const handleSettingsButtonClick = () => {
         </div>
 
         <div className="content">
-        <h2>Borrowed Media</h2>
-    
-        <table id="borrowed-media-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Borrowed On</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {borrowedMedia.length > 0 ? (
-            borrowedMedia.map((media) => (
-              <tr key={media.id}>
-                <td>{media.title}</td>
-                <td>{media.type}</td>
-                <td>{new Date(media.borrow_date).toLocaleDateString()}</td>
-                <td>
-                  <button 
-                    onClick={() => handleReturn(media.id)} 
-                    className="return-button"
-                  >
-                    Return
-                  </button>
-                </td>
+          <h2>Borrowed Media</h2>
+
+          <table id="borrowed-media-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Borrowed On</th>
+                <th>Action</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">No borrowed media found.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {borrowedMedia.length > 0 ? (
+                borrowedMedia.map((media) => (
+                  <tr key={media.id}>
+                    <td>{media.title}</td>
+                    <td>{media.type}</td>
+                    <td>{new Date(media.borrow_date).toLocaleDateString()}</td>
+                    <td>
+                      <button 
+                        onClick={() => handleReturn(media.id)} 
+                        className="return-button"
+                      >
+                        Return
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No borrowed media found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

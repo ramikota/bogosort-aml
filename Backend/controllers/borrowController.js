@@ -1,27 +1,22 @@
-const Borrow = require('../models/Borrow'); // Import the Borrow model
+const Borrow = require('../models/Borrow'); 
 const BranchMedia = require('../models/branchMedia');
 
 class BorrowController {
     static async borrowMedia(req, res) {
         const { userId, mediaId, branchId } = req.body;
        
-        
         try {
         
-          
-          // Check if the media exists in the branch and is available
           const result = await BranchMedia.checkMediaInBranch(branchId, mediaId);
           
           if (!result || !result[0]) {
             return res.status(404).json({ message: 'Media not found in the branch' });
           }
-      
-          // Ensure there is stock available for borrowing
+
           if (result[0].available_count > 0) {
-            // Step 1: Call the borrowMedia method to create a borrow record and update availability
+
             const borrowResult = await Borrow.borrowMedia({ userId, mediaId, branchId });
       
-            // If borrow operation is successful
             res.status(200).json({ message: 'Item borrowed successfully' });
             
           } else {
@@ -34,7 +29,7 @@ class BorrowController {
    }
 
    static async getBorrowedMedia(req, res) {
-    const userId = req.query.userId; 
+    const { id: userId } = req.user; 
 
     if (!userId) {
       return res.status(400).json({ message: 'User ID is required' });
@@ -44,7 +39,7 @@ class BorrowController {
       const borrowedMedia = await Borrow.findByUserIdWithMedia(userId);
 
       if (borrowedMedia.length === 0) {
-        return res.status(200).json({ borrowedItems: [] }); // Always return an array
+        return res.status(200).json({ borrowedItems: [] }); 
       }
       res.status(200).json({ borrowedItems: borrowedMedia });
     } catch (error) {

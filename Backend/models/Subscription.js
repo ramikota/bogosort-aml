@@ -1,4 +1,4 @@
-const promisePool = require('../config/db'); // Your connection pool
+const promisePool = require('../config/db'); 
 
 class Subscription {
   

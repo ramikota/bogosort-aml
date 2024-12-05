@@ -1,4 +1,4 @@
-const promisePool = require('../config/db');  // Import the promisePool
+const promisePool = require('../config/db');  
 
 class Media {
 
@@ -32,7 +32,7 @@ class Media {
     const query = 'SELECT * FROM Media WHERE id = ?';
     try {
       const [results] = await promisePool.query(query, [mediaId]);
-      return results.length > 0 ? results[0] : null; // Return media or null if not found
+      return results.length > 0 ? results[0] : null; 
     } catch (err) {
       throw new Error('Error executing findById query: ' + err.message);
     }
