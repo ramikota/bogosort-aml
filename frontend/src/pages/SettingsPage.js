@@ -16,11 +16,13 @@ function SettingsPage() {
       
          navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
           Cookies.remove('userId');
+          Cookies.remove('token')
           navigate('/');
         } catch (err) {
           console.error('Error during logout', err);
         }
       };
+    
 
     const handleImageButtonClick = () => {
         navigate('/profile'); 

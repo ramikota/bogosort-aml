@@ -18,11 +18,11 @@ function ProfilePage() {
     const handleNavigation = (path) => {
         navigate(path); 
     };
-    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+    const handleBorrowed = () => {
+        const userId = Cookies.get('userId'); 
         if (userId) {
-          navigate(`/borrowed?userId=${userId}`); 
+          navigate(`/borrowed?userId=${userId}`);
         } else {
-
           console.log('User ID is missing.');
         }
       };
@@ -32,6 +32,7 @@ function ProfilePage() {
       
          navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
           Cookies.remove('userId');
+          Cookies.remove('token')
           navigate('/');
         } catch (err) {
           console.error('Error during logout', err);
@@ -51,7 +52,7 @@ function ProfilePage() {
         setMessage("Your details have been updated.");
         
     };
-    const handleSub = () => { const userId = localStorage.getItem('userId'); 
+    const handleSub = () => {  const userId = Cookies.get('userId'); 
         if (userId) {
           navigate(`/subscription?userId=${userId}`); 
         } else {

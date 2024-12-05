@@ -2,9 +2,8 @@
 // import fs from 'fs';
 // import { createConnection } from 'mysql2';
 // import dotenv from 'dotenv';
-// dotenv.config(); // Make sure to load environment variables
+// dotenv.config(); 
 
-// Create DB connection
 
 
 // // TMDB API Key
@@ -14,7 +13,7 @@
 // // // Fetch Movies Function
 // // async function fetchMovies() {
 // //     const allMovies = [];
-// //     const totalMoviesToFetch = 200;  // Number of movies you want to fetch
+// //     const totalMoviesToFetch = 200;  
 // //     let currentPage = 1;
 
 // //     try {
@@ -34,7 +33,7 @@
 // //             }));
 
 // //             allMovies.push(...movies);
-// //             currentPage++;  // Move to the next page
+// //             currentPage++;  
 // //         }
 
 // //         return allMovies;
@@ -58,7 +57,7 @@
 //                 return { title, authors, image };
 //             });
 //         }
-//         return []; // Return empty array if no items found
+//         return []; 
 //     } catch (error) {
 //         console.error('Error fetching data:', error);
 //         return [];
@@ -68,13 +67,13 @@
 // // async function storeMovies(movieList) {
 // //     try {
 // //         for (const movie of movieList) {
-// //             // Check if the movie already exists
+// //            
 // //             const [existingMovie] = await connection.promise().execute(
 // //                 'SELECT id FROM Media WHERE title = ? AND type = ?',
 // //                 [movie.title, movie.type]
 // //             );
 
-// //             // If movie doesn't exist, insert it
+// //             
 // //             if (existingMovie.length === 0) {
 // //                 await connection.promise().execute(
 // //                     'INSERT INTO Media (title, author, type, availability, image) VALUES (?, ?, ?, ?, ?)',
@@ -94,7 +93,7 @@
 //         for (const book of booksList) {
 //             if (!book.title || !book.authors) {
 //                 console.log('Skipping book with missing title or authors:', book);
-//                 continue; // Skip if title or authors are missing
+//                 continue; 
 //             }
 
 //             await connection.execute(
@@ -110,11 +109,9 @@
 
 // // Main Function
 // // async function main() {
-// //     // Fetch Movies (limit to 200)
+
 // //     const moviesList = await fetchMovies();
 
-// //     // Store Movies in the Database
-// //     console.log(`Fetched ${moviesList.length} movies. Storing in database...`);
 // //     await storeMovies(moviesList);
 // //     console.log('Movies successfully stored.');
 // // }
@@ -131,7 +128,7 @@
 //         const books = await fetchBooks(author);
         
 //         if (books && books.length > 0) {
-//             // Add the fetched books to the array, but limit to 200
+//             
 //             for (const book of books) {
 //                 if (totalBooksFetched < 200) {
 //                     booksList.push(book);
