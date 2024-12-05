@@ -80,20 +80,21 @@ useEffect(() => {
 
   const handleSub = () => {
     const userId = Cookies.get('userId');
-=======
+
 };
 
 const handleSettingsButtonClick = () => {
     navigate('/settings');
 };
-  const handleSub = () => { const userId = localStorage.getItem('userId'); 
+
+  
 
     if (userId) {
       navigate(`/subscription?userId=${userId}`);
     } else {
       console.log('User ID is missing.');
     }
-  };
+  
 
   return (
     <div className="homepage">

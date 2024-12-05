@@ -28,14 +28,15 @@ function SettingsPage() {
     };
 
     const handleBorrowed = () => {
-        const userId = Cookies.get('userId'); 
-=======
+        const userId = Cookies.get('userId');
+    }; 
+
 
     const handleSettingsButtonClick = () => {
         navigate('/settings');
     };
 
-    const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+
 
         if (userId) {
           navigate(`/borrowed?userId=${userId}`);
@@ -50,7 +51,7 @@ function SettingsPage() {
     
           console.log('User ID is missing.');
         }
-      };
+      
    
     return (
         <div className="homepage">
@@ -75,9 +76,7 @@ function SettingsPage() {
                 >
                     Settings
                 </button>
-=======
-              
-#
+
             </div>
 
             <div className="main-content">

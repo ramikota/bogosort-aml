@@ -60,7 +60,7 @@ function SubscriptionPage() {
 
   const handleBorrowed = () => {
     const userId = Cookies.get('userId'); 
-=======
+  };
   const handleProfileButtonClick = () => {
     navigate('/profile');
 };
@@ -68,14 +68,14 @@ function SubscriptionPage() {
 const handleSettingsButtonClick = () => {
     navigate('/settings');
 };
-  const handleBorrowed = () => { const userId = localStorage.getItem('userId'); 
+ 
 
     if (userId) {
       navigate(`/borrowed?userId=${userId}`);
     } else {
       console.log('User ID is missing.');
     }
-  };
+  
 
   return (
     <div className="homepage">
@@ -89,7 +89,7 @@ const handleSettingsButtonClick = () => {
         <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>
           Settings
         </button>
-=======
+  
                 <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>                
                 
 
