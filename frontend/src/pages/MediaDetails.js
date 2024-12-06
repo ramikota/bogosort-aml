@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'; 
-import "../styles/HomePage.css";
+import "../styles/HomePage.css"; 
 
 function MediaDetails() {
   const { id } = useParams();
@@ -9,7 +9,18 @@ function MediaDetails() {
   const [availability, setAvailability] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); 
+  const [messageType, setMessageType] = useState('');
+  const [deliveryOption, setDeliveryOption] = useState('pickUp');
+  const [showDeliveryForm, setShowDeliveryForm] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    firstName: '',
+    lastName: '',
+    address: '',
+    postcode: '',
+    city: '',
+    phone: '',
+  });
+  const [deliveryDate, setDeliveryDate] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,18 +74,31 @@ function MediaDetails() {
       setMessageType('error');
       return;
     }
-  
+
+
+    if (deliveryOption === 'delivery' && !userDetails.firstName) {
+      setMessage('Please complete the delivery form.');
+      setMessageType('error');
+      setTimeout(() => {
+        setMessage(''); 
+      }, 2000);
+      return;
+    }
+
     fetch("http://localhost:3001/api/borrow", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`, 
       },
-      body: JSON.stringify({ mediaId: mediaDetails.id, branchId, userId }),
+      body: JSON.stringify({ 
+        mediaId: mediaDetails.id, 
+        branchId, 
+        userId, 
+      }),
     })
       .then(response => {
         if (!response.ok) {
-  
           return response.json().then(data => {
             throw new Error(data.message || 'Failed to borrow media');
           });
@@ -84,7 +108,19 @@ function MediaDetails() {
       .then(data => {
         setMessage(data.message || 'Item borrowed successfully');
         setMessageType('success');
-        setTimeout(() => setMessage(''), 2000);
+
+   
+        if (deliveryOption === 'delivery') {
+          const estimatedDate = new Date();
+          estimatedDate.setDate(estimatedDate.getDate() + 3);
+          setDeliveryDate(estimatedDate.toDateString());
+          alert(`Your item will be delivered to: ${userDetails.address}. Expected delivery date: ${estimatedDate.toDateString()}`);
+        }
+
+      
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
       })
       .catch(err => {
         setMessage(`Error: ${err.message}`);
@@ -92,43 +128,28 @@ function MediaDetails() {
         setTimeout(() => setMessage(''), 2000); 
       });
   };
-  const handleBorrowed = () => {
-    const userId = Cookies.get('userId'); 
-    if (userId) {
-      navigate(`/borrowed?userId=${userId}`);
-    } else {
-      setMessage('User ID is missing.');
-      setMessageType('error');
-    }
+
+  const handleDeliveryAddressChange = (e) => {
+    setUserDetails({
+      ...userDetails,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const handleSub = () => {
-    const userId = Cookies.get('userId');  
-    if (userId) {
-      navigate(`/subscription?userId=${userId}`);
-    } else {
-      setMessage('User ID is missing.');
-      setMessageType('error');
-    }
+  const handleDeliveryOptionChange = (e) => {
+    setDeliveryOption(e.target.value);
+    setShowDeliveryForm(e.target.value === 'delivery');
   };
 
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
   const handleLogout = async () => {
     try {
-  
-     navigate('http://localhost:3001/api/logout', {}, { withCredentials: true });
+      const response = await fetch('http://localhost:3001/api/logout', { method: 'POST' });
       Cookies.remove('userId');
-      Cookies.remove('token')
+      Cookies.remove('token');
       navigate('/');
     } catch (err) {
       console.error('Error during logout', err);
     }
-  };
-
-  const handleImageButtonClick = () => {
-    navigate('/profile');
   };
 
   if (isLoading) {
@@ -139,20 +160,15 @@ function MediaDetails() {
     <div className="homepage">
       <div className="sidebar">
         <h2>AML</h2>
-        <button className="sidebar-button" onClick={() => handleNavigation("/home")}>Home</button>
-        <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>
-        <button className="sidebar-button" onClick={handleSub}>Subscription</button>
-        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button>
+        <button className="sidebar-button" onClick={() => navigate("/home")}>Home</button>
+        <button className="sidebar-button" onClick={() => navigate("/borrowed")}>Borrowed</button>
+        <button className="sidebar-button" onClick={() => navigate("/subscription")}>Subscription</button>
+        <button className="sidebar-button" onClick={() => navigate("/settings")}>Settings</button>
       </div>
 
       <div className="main-content">
         <div className="navbar">
-          <div className="navbar-buttons" style={{ display: 'flex', justifyContent: 'flex-start', gap: '15px' }}>
-            <button className="image-button" onClick={handleImageButtonClick}>
-              <img src="/profile.png" alt="Profile" className="image-icon" />
-            </button>
-            <button className="logout-button" onClick={handleLogout}>Log Out</button>
-          </div>
+          <button className="logout-button" onClick={handleLogout}>Log Out</button>
         </div>
 
         <div className="content">
@@ -167,6 +183,84 @@ function MediaDetails() {
           <p><strong>Author:</strong> {mediaDetails.author}</p>
           <p><strong>Type:</strong> {mediaDetails.type}</p>
 
+          <h3>Borrow Option</h3>
+          <div className="borrow-options">
+            <label>
+              <input
+                type="radio"
+                name="deliveryOption"
+                value="pickUp"
+                checked={deliveryOption === 'pickUp'}
+                onChange={handleDeliveryOptionChange}
+              /> Pick-Up
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="deliveryOption"
+                value="delivery"
+                checked={deliveryOption === 'delivery'}
+                onChange={handleDeliveryOptionChange}
+              /> Delivery
+            </label>
+          </div>
+
+          {showDeliveryForm && (
+            <div className="delivery-form">
+              <h4>Delivery Details</h4>
+              <form className="form-vertical">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={userDetails.firstName}
+                  placeholder="First Name"
+                  onChange={handleDeliveryAddressChange}
+                  className="form-input"
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={userDetails.lastName}
+                  placeholder="Last Name"
+                  onChange={handleDeliveryAddressChange}
+                  className="form-input"
+                />
+                <input
+                  type="text"
+                  name="address"
+                  value={userDetails.address}
+                  placeholder="Address"
+                  onChange={handleDeliveryAddressChange}
+                  className="form-input"
+                />
+                <input
+                  type="text"
+                  name="postcode"
+                  value={userDetails.postcode}
+                  placeholder="Postcode"
+                  onChange={handleDeliveryAddressChange}
+                  className="form-input"
+                />
+                <input
+                  type="text"
+                  name="city"
+                  value={userDetails.city}
+                  placeholder="City"
+                  onChange={handleDeliveryAddressChange}
+                  className="form-input"
+                />
+                <input
+                  type="text"
+                  name="phone"
+                  value={userDetails.phone}
+                  placeholder="Phone"
+                  onChange={handleDeliveryAddressChange}
+                  className="form-input"
+                />
+              </form>
+            </div>
+          )}
+
           <h3>Availability:</h3>
           <div className="media-grid">
             {availability.length > 0 ? (
@@ -174,7 +268,7 @@ function MediaDetails() {
                 <div key={branch.branch_name} className="media-item">
                   <p>{branch.branch_name}: {branch.available_count > 0 ? branch.available_count : 'Not Available'}</p>
                   {branch.available_count > 0 && (
-                    <button className="sidebar-button" onClick={() => handleBorrow(branch.branch_id)}>Borrow</button>
+                    <button className="borrow-button" onClick={() => handleBorrow(branch.branch_id)}>Borrow</button>
                   )}
                 </div>
               ))
