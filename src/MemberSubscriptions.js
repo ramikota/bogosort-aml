@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PaymentHistory from './PaymentHistory';
-import "./stylesheet.css";
+import "./AccountantPage.css";
 import * as XLSX from 'xlsx';
 
 function MemberSubscriptions() {
