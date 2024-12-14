@@ -25,10 +25,9 @@ function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Send a POST request to the backend to register the user
+            
             const response = await axios.post("http://localhost:3001/api/register", formData);
             setMessage("Signup successful! Please log in.");
-            setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
         } catch (error) {
             setMessage("Signup failed: " + error.response.data.message);
         }

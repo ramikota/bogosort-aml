@@ -46,7 +46,6 @@ class UserController {
 
       // Set the token in the cookie
       res.cookie('token', token, {
-        httpOnly: true,
         secure: process.env.NODE_ENV === 'development',
         sameSite: 'Strict',
         maxAge: 3600000  // 1 hour expiration
@@ -83,7 +82,6 @@ class UserController {
       );
       
        res.cookie('token', token, {
-        httpOnly: true,
         secure: process.env.NODE_ENV === 'development',
         sameSite: 'Strict',
         maxAge: 3600000  
@@ -101,7 +99,6 @@ class UserController {
     try {
       // Clear the authentication cookie
       res.clearCookie('token', {
-        httpOnly: true,
         secure: process.env.NODE_ENV === 'development',
         sameSite: 'Strict',
         path: '/', 
