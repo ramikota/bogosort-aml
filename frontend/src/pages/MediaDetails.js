@@ -21,6 +21,7 @@ function MediaDetails() {
     phone: '',
   });
   const [deliveryDate, setDeliveryDate] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,6 +59,19 @@ function MediaDetails() {
         setIsLoading(false);
       });
   }, [id]);
+
+  useEffect(() => {
+          const handleResize = () => {
+              if (window.innerWidth < 768) {
+                  setIsSidebarOpen(false); 
+              } else {
+                  setIsSidebarOpen(true); 
+              }
+          };
+          handleResize();
+          window.addEventListener("resize", handleResize);
+          return () => window.removeEventListener("resize", handleResize);
+      }, []);
 
   const handleBorrow = (branchId) => {
     const userId = Cookies.get('userId'); 
@@ -140,6 +154,15 @@ function MediaDetails() {
     setDeliveryOption(e.target.value);
     setShowDeliveryForm(e.target.value === 'delivery');
   };
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prevState => !prevState);
+};
+const handleNavigation = (path) => {
+  navigate(path);
+};
+const handleImageButtonClick = () => {
+  navigate('/profile');
+};
 
   const handleLogout = async () => {
     try {
@@ -157,19 +180,26 @@ function MediaDetails() {
   }
 
   return (
-    <div className="homepage">
-      <div className="sidebar">
-        <h2>AML</h2>
-        <button className="sidebar-button" onClick={() => navigate("/home")}>Home</button>
-        <button className="sidebar-button" onClick={() => navigate("/borrowed")}>Borrowed</button>
-        <button className="sidebar-button" onClick={() => navigate("/subscription")}>Subscription</button>
-        <button className="sidebar-button" onClick={() => navigate("/settings")}>Settings</button>
-      </div>
-
-      <div className="main-content">
-        <div className="navbar">
-          <button className="logout-button" onClick={handleLogout}>Log Out</button>
+    <div className={`homepage ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+        <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+            <h2>AML</h2>
+            <button className="sidebar-button" onClick={() => handleNavigation("/home")}>Home</button>
+            <button className="sidebar-button" onClick={() => handleNavigation("/borrowed")}>Borrowed</button>
+            <button className="sidebar-button" onClick={() => handleNavigation("/subscription")}>Subscription</button>
+            <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button>
         </div>
+
+        <div className="main-content">
+            <div className="navbar">
+                <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+                <h1>Profile</h1>
+                <div className="navbar-buttons">
+                <button className="image-button" onClick={handleImageButtonClick}>
+                            <img src="/profile.png" alt="Profile" className="image-icon" />
+                        </button>
+                    <button className="logout-button" onClick={handleLogout}>Log Out</button>
+                </div>
+            </div>
 
         <div className="content">
           {message && (

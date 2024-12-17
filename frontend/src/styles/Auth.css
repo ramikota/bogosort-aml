@@ -39,7 +39,7 @@
 .auth-form button {
     padding: 12px;
     background-color: #F4511E;
-    color: #fff;
+    color: black;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -47,7 +47,7 @@
 }
 
 .auth-form button:hover {
-    background-color: #E64A19;
+    background-color: #bd3e17;
 }
 
 .auth-message {
@@ -61,7 +61,9 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color:#4B0082;
+    background-color: #4B0082;
+    min-height: 100vh; 
+    box-sizing: border-box; 
 }
 
 .subscription-options {
@@ -96,7 +98,7 @@
 }
 
 .save-changes-button:hover {
-    background-color: #E64A19;
+    background-color: #bd3e17;
 }
 
 .payment-form-container {
@@ -127,5 +129,5 @@
 }
 
 .save-changes-button:hover {
-    background-color: #E64A19;
+    background-color: #bd3e17;
 }

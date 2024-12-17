@@ -19,7 +19,7 @@ function SubscriptionSignUpPage() {
 
     const handlePlanSelect = (plan) => {
         setSelectedPlan(plan);
-        setShowPaymentForm(true); // Show the payment form
+        setShowPaymentForm(true); 
     };
 
     const handlePaymentChange = (e) => {

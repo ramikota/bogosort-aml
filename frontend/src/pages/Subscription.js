@@ -6,6 +6,7 @@ function SubscriptionPage() {
   const [subscription, setSubscription] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +38,21 @@ function SubscriptionPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+          const handleResize = () => {
+              if (window.innerWidth < 768) {
+                  setIsSidebarOpen(false); 
+              } else {
+                  setIsSidebarOpen(true); 
+              }
+          };
+          handleResize();
+  
+          window.addEventListener("resize", handleResize);
+  
+          return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
   const handleNavigation = (path) => {
     navigate(path);
   };
@@ -56,6 +72,7 @@ function SubscriptionPage() {
   const handleImageButtonClick = () => {
     navigate("/profile");
   };
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const handleBorrowed = () => {
     const userId = Cookies.get('userId'); 
@@ -67,33 +84,26 @@ function SubscriptionPage() {
   };
 
   return (
-    <div className="homepage">
-      <div className="sidebar">
-        <h2>AML</h2>
-        <button className="sidebar-button" onClick={() => handleNavigation("/home")}>
-          Home
-        </button>
-        <button className="sidebar-button" onClick={handleBorrowed}>Borrowed</button>
-        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>
-          Settings
-        </button>
-      </div>
-
-      <div className="main-content">
-        <div className="navbar">
-          <div className="navbar-buttons">
-            <button className="image-button" onClick={handleImageButtonClick}>
-              <img
-                src="/profile.png"
-                alt="Profile"
-                className="image-icon"
-              />
-            </button>
-            <button className="logout-button" onClick={handleLogout}>
-              Log Out
-            </button>
-          </div>
+    <div className={`homepage ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+        <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+            <h2>AML</h2>
+            <button className="sidebar-button" onClick={() => handleNavigation("/home")}>Home</button>
+            <button className="sidebar-button" onClick={() => handleNavigation("/borrowed")}>Borrowed</button>
+            <button className="sidebar-button" onClick={() => handleNavigation("/subscription")}>Subscription</button>
+            <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>Settings</button>
         </div>
+
+        <div className="main-content">
+            <div className="navbar">
+                <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+                <h1>Subscription</h1>
+                <div className="navbar-buttons">
+                <button className="image-button" onClick={handleImageButtonClick}>
+                            <img src="/profile.png" alt="Profile" className="image-icon" />
+                        </button>
+                    <button className="logout-button" onClick={handleLogout}>Log Out</button>
+                </div>
+            </div>
 
         <div className="content">
           <h2>Subscription Details</h2>
