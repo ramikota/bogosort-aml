@@ -11,3 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Style the scrollbar itself */
+::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+  height: 12px; /* Set the height of the horizontal scrollbar */
+}
+
+/* Style the track (the part the scrollbar moves within) */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light gray */
+  border-radius: 10px;
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background-color: #4B0082; /* Default gray color */
+  border-radius: 10px;
+  border: 1px solid #f1f1f1; /* Add some space around the thumb */
+}
+
+/* Hover state for the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker gray when hovered */
+}
+
+/* Optional: Style the corner (where the vertical and horizontal scrollbars meet) */
+::-webkit-scrollbar-corner {
+  background-color: #f1f1f1;
+}
