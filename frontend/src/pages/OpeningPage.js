@@ -63,12 +63,10 @@ function OpeningPage() {
         <div className="homepage">
     <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
         <h2>AML</h2>
-        <button className="sidebar-button" onClick={() => handleNavigation("/home")}>
+        <button className="sidebar-button" onClick={() => handleNavigation("/")}>
             Home
         </button>
-        <button className="sidebar-button" onClick={() => handleNavigation("/settings")}>
-            Settings
-        </button>
+       
     </div>
 
     <div className="main-content">
