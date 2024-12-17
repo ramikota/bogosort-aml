@@ -14,8 +14,8 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color: #6258eb;
-    color: white;
+    background-color: #4B0082;
+    color: #FFFFFF ;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,8 +30,8 @@ body {
     width: 100%;
     padding: 10px 20px;
     margin: 10px 0;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -40,7 +40,7 @@ body {
 }
 
 .sidebar-button:hover {
-    background-color: #125827;
+    background-color: #E64A19;
 }
 
 .main-content {
@@ -55,8 +55,9 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     border-bottom: 1px solid #dee2e6;
+    border-radius: 10px;
 }
 .navbar-buttons {
     display: flex;
@@ -92,8 +93,8 @@ body {
 
 .logout-button {
     padding: 10px 20px;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -101,13 +102,13 @@ body {
 }
 
 .logout-button:hover {
-    background-color: #125827;
+    background-color: #E64A19;
 }
 
 .logout-button {
     padding: 10px 10px;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -148,8 +149,8 @@ body {
 
 .save-button {
     padding: 10px 20px;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -158,14 +159,14 @@ body {
 }
 
 .save-button:hover {
-    background-color: #125827;
+    background-color: #E64A19;
 }
 
 .profile-message {
     margin-top: 15px;
     text-align: left;
     font-size: 0.9rem;
-    color: #22d357;
+    color: #F4511E;
 }
 
 .profile-message.error {

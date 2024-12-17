@@ -5,27 +5,27 @@
     justify-content: center;
     height: 100vh;
     text-align: center;
-    background-color: #6258eb;
+    background-color: #4B0082;
     padding: 20px;
 }
 
 .thank-you-container h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: #ffffff;
+    color: black;
 }
 
 .thank-you-container p {
     font-size: 1.2rem;
     margin-bottom: 20px;
-    color: #ffffff;
+    color: black;
 }
 
 .go-to-login-button {
     padding: 12px 20px;
     font-size: 1rem;
-    color: #ffffff;
-    background-color: #22d357;
+    color: black;
+    background-color: #F4511E;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -33,5 +33,5 @@
 }
 
 .go-to-login-button:hover {
-    background-color: #125827;
+    background-color: #E64A19;
 }

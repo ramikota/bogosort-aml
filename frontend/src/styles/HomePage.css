@@ -15,8 +15,8 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color: #6258eb;
-    color: white;
+    background-color: #4B0082;
+    color: #FFFFFF ;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,8 +31,8 @@ body {
     width: 100%;
     padding: 10px 20px;
     margin: 10px 0;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -41,7 +41,7 @@ body {
 }
 
 .sidebar-button:hover {
-    background-color: #125827;
+    background-color: #E64A19;
 }
 
 .main-content {
@@ -56,8 +56,9 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     border-bottom: 1px solid #dee2e6;
+    border-radius: 10px;
 }
 .navbar-buttons {
     display: flex;
@@ -103,8 +104,8 @@ body {
 
 .logout-button {
     padding: 10px 20px;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -112,13 +113,13 @@ body {
 }
 
 .logout-button:hover {
-    background-color: #125827;
+    background-color: #E64A19;
 }
 
 .logout-button {
     padding: 10px 10px;
-    background-color: #22d357;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -200,7 +201,7 @@ body {
 
 .success-message {
     background-color: #28a745;  
-    color: white;
+    color: black ;
     padding: 10px 20px; 
     text-align: center;
     border-radius: 5px;
@@ -217,7 +218,7 @@ body {
 
   .error-message {
     background-color: #dc3545;  
-    color: white;
+    color: black ;
     padding: 10px 20px;  
     text-align: center;
     border-radius: 5px;
@@ -268,8 +269,8 @@ body {
   
  
   .return-button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #F4511E;
+    color: black ;
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
@@ -324,7 +325,7 @@ body {
 }
 
 .form-input:focus {
-  border-color: #4CAF50; 
+  border-color: #F4511E; 
 }
 
 
@@ -348,8 +349,8 @@ body {
 
 
 .form-submit-button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #F4511E;
+  color: black ;
   padding: 12px;
   border: none;
   border-radius: 6px;
