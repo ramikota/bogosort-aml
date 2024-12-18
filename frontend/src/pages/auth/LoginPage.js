@@ -62,7 +62,7 @@ const handleSubmit = async (e) => {
                     {loading ? 'Logging in...' : 'Log In'}
                 </button>
                 <Link to="/accountantlogin">Accountant login</Link>
-                {error && <p>{error}</p>}
+                {error && <div className="error-message">{error}</div>}
             </form>
         </div>
     );

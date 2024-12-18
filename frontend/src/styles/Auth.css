@@ -131,3 +131,13 @@
 .save-changes-button:hover {
     background-color: #bd3e17;
 }
+
+.error-message {
+    color: red; /* Change the text color to red */
+    font-size: 14px; /* Adjust the font size */
+    margin-top: -120px; /* Add spacing above the message */
+    background-color: #fdd; /* Optional: Light red background for emphasis */
+    padding: 5px; /* Optional: Add padding for better readability */
+    border: 1px solid red; /* Optional: Add a red border */
+    border-radius: 4px; /* Optional: Make the corners rounded */
+  }
