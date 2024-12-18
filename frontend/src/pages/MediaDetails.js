@@ -192,7 +192,6 @@ const handleImageButtonClick = () => {
         <div className="main-content">
             <div className="navbar">
                 <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
-                <h1>Profile</h1>
                 <div className="navbar-buttons">
                 <button className="image-button" onClick={handleImageButtonClick}>
                             <img src="/profile.png" alt="Profile" className="image-icon" />
