@@ -18,9 +18,6 @@ import ProtectedRoute from './components/ProtectedRoute.js';
 import MemberSubscriptions from "./pages/MemberSubscriptions.js";
 import PaymentHistory from "./pages/PaymentHistory.js";
 
-import MemberSubscriptions from "./pages/MemberSubscriptions.js";
-import PaymentHistory from "./pages/PaymentHistory.js";
-
 
 
 function App() {
