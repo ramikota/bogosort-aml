@@ -5,36 +5,28 @@ import "../styles/AccountantPage.css";
 import * as XLSX from 'xlsx';
 
 function MemberSubscriptions() {
+    const [subscriptions, setSubscriptions] = useState([]);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    /*     const [subscriptions, setSubscriptions] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
-
     useEffect(() => {
-        fetch("http://localhost:3001/api/getSubscriptions")
+        fetch("http://localhost:3001/api/getSubscription")
             .then(response => response.json())
             .then(data => {
                 if (data > 0) {
                     setSubscriptions(data)
                 } else {
-                    setErrorMessage("There is no payment history.");
+                    setError("There is no payment history.");
                 }
-    }, []); */
-
-    const members = [
-        { name: 'John', subscriptionAmount: '£4.99'},
-        { name: 'James', subscriptionAmount: '£4.99'},
-        { name: 'Joe', subscriptionAmount: '£4.99'},
-        { name: 'Ben', subscriptionAmount: '£4.99'},
-        { name: 'Bob', subscriptionAmount: '£4.99'}
-    ]
+            }, []);
+        })
 
     const handleNavigation = () => {
         navigate('/PaymentHistory');
     }
 
     const exportData = () => {
-        const worksheet = XLSX.utils.json_to_sheet(members);
+        const worksheet = XLSX.utils.json_to_sheet(subscriptions);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, 'Members');
         XLSX.writeFile(workbook, 'Subscriptions.xlsx');
@@ -49,7 +41,7 @@ function MemberSubscriptions() {
                     <th>Subscription Amount</th>
                     <th>Payment History</th>
                 </tr>
-                {members.map((member, index) => {
+                {subscriptions.map((member, index) => {
                     return(
                     <tr key = {index}>
                         <td>{member.name}</td>

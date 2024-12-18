@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 function PaymentHistory() {
     const navigate = useNavigate();
 
-    /*     const [payments, setPayments] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [payments, setPayments] = useState([]);
+    const [error, setError]= useState("");
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/getPayments")
+        fetch("http://localhost:3001/api/getSubscription")
             .then(response => response.json())
             .then(data => {
                 if (data > 0) {
@@ -16,15 +16,8 @@ function PaymentHistory() {
                 } else {
                     setErrorMessage("There is no member history.");
                 }
-    }, []); */
-
-    const paymentInfo = [
-        { amount: '£4.99', method: 'Direct Debit', date: '01/11/2024'},
-        { amount: '£4.99', method: 'Direct Debit', date: '01/10/2024'},
-        { amount: '£4.99', method: 'Direct Debit', date: '01/09/2024'},
-        { amount: '£4.99', method: 'Direct Debit', date: '01/08/2024'},
-        { amount: '£4.99', method: 'Direct Debit', date: '01/07/2024'}
-    ]
+            }, []);
+        })
 
     return (
         <div className="main">
@@ -35,7 +28,7 @@ function PaymentHistory() {
                     <th>Payment Method</th>
                     <th>Payment Date</th>
                 </tr>
-                {paymentInfo.map((payment, index) => {
+                {payments.map((payment, index) => {
                     return(
                     <tr key = {index}>
                         <td>{payment.amount}</td>

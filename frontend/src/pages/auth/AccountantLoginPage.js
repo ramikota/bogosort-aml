@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie'; 
 import "../../styles/Auth.css";
 
-function LoginPage() {
+function AccountantLoginPage() {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const handleSubmit = async (e) => {
     setError(''); 
     try {
         const response = await axios.post( 
-            'http://localhost:3001/api/login', 
+            'http://localhost:3001/api/loginAccountant', 
             formData, 
             { withCredentials: true }
         );
@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
         Cookies.set('token', token, { expires: 1 });
         Cookies.set('userId', userId, { expires: 1 });
 
-        navigate('/home');
+        navigate('/membersubscriptions');
     } catch (err) {
         setError(err.response?.data?.message || 'An error occurred');
     } finally {
@@ -61,11 +61,10 @@ const handleSubmit = async (e) => {
                 <button type="submit" disabled={loading}>
                     {loading ? 'Logging in...' : 'Log In'}
                 </button>
-                <Link to="/accountantlogin">Accountant login</Link>
                 {error && <p>{error}</p>}
             </form>
         </div>
     );
 }
 
-export default LoginPage;
+export default AccountantLoginPage;

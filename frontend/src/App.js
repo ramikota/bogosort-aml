@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
+import AccountantLoginPage from "./pages/auth/AccountantLoginPage.js";
 import SignUpPage from "./pages/auth/SignUpPage";
 import OpeningPage from "./pages/OpeningPage";
 import HomePage from "./pages/HomePage";
@@ -28,6 +29,7 @@ function App() {
                 <Route
                     path="/home" element={<ProtectedRoute element={<HomePage />} />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/accountantlogin" element={<AccountantLoginPage />} />
                 <Route path="/media/:id" element={<ProtectedRoute element={<MediaDetails />} />} />
                 <Route path="/signup" element={<SignUpPage />} />
 
