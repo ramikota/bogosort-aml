@@ -14,7 +14,7 @@ function PaymentHistory() {
                 if (data > 0) {
                     setPayments(data)
                 } else {
-                    setErrorMessage("There is no member history.");
+                    setError("There is no member history.");
                 }
             }, []);
         })
