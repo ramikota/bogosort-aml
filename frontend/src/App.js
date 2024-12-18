@@ -15,6 +15,11 @@ import SubscriptionSignUpPage from "./pages/auth/SubscriptionSignUp";
 import SubscribedPage from "./pages/SubscribedPage";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import ProtectedRoute from './components/ProtectedRoute.js';  
+import MemberSubscriptions from "./pages/MemberSubscriptions.js";
+import PaymentHistory from "./pages/PaymentHistory.js";
+
+import MemberSubscriptions from "./pages/MemberSubscriptions.js";
+import PaymentHistory from "./pages/PaymentHistory.js";
 
 
 
@@ -38,6 +43,9 @@ function App() {
                 <Route path="/settings" element={<ProtectedRoute element={<SettingsPage />} />}/>
                 <Route path="/subscription" element={<SubscriptionPage />} />
                 <Route path="*" element={<h1>404: Page Not Found</h1>} />
+
+                <Route path="/membersubscriptions" element={<MemberSubscriptions />} />
+                <Route path="/paymenthistory" element={<PaymentHistory />} />
             </Routes>
         </Router>
     );

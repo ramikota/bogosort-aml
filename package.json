@@ -5,7 +5,7 @@
   "main": "server.js",
 
   "scripts": {
-    "devStart": "nodemon /Users/habib/Documents/bogosort-aml/Backend/server.js"
+    "devStart": "nodemon /Users/Casey/Downloads/bogosort-aml/Backend/server.js"
   },
   "keywords": [],
   "author": "",
