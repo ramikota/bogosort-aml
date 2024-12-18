@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+  
+.main th,
+.main td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.main th {
+  font-weight: bold;
+  background-color: #f4f4f4;
+}
+
+
+.main tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.main tr:hover {
+  background-color: #f1f1f1;
+}
+
+.export-button {
+    width: 100%;
+    margin: 10px 0;
+    font-size: 1.4rem;
+  }
+
+.back-button {
+  width: 10%;
+}
+
+.view-button,
+.export-button,
+.back-button {
+  padding: 10px 20px;
+  background-color: #22d357;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
