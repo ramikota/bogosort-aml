@@ -1,7 +1,7 @@
-// borrowController.test.js
-const BorrowController = require('/Users/habib/Documents/bogosort-aml/Backend/controllers/borrowController.js'); // Your controller file
-const BranchMedia = require('../models/branchMedia'); // Your BranchMedia model
-const Borrow = require('../models/Borrow'); // Your Borrow model
+
+const BorrowController = require('/Users/habib/Documents/bogosort-aml/Backend/controllers/borrowController.js'); 
+const BranchMedia = require('../models/branchMedia'); 
+const Borrow = require('../models/Borrow'); 
 const { mockResponse } = require('/Users/habib/Documents/bogosort-aml/Backend/tests/mockResponse.js');
 // Mock the BranchMedia and Borrow models
 jest.mock('../models/BranchMedia');
